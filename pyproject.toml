@@ -21,6 +21,9 @@ dev = [
     "pyyaml>=6",
 ]
 
+[project.scripts]
+mfc = "mfcloud.cli.app:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
