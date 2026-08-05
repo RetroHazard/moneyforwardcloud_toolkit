@@ -23,6 +23,7 @@ dev = [
 
 [project.scripts]
 mfc = "mfcloud.cli.app:main"
+mfc-mcp = "mfcloud.mcp.server:main"
 
 [build-system]
 requires = ["hatchling"]
