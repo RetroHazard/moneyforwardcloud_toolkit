@@ -16,6 +16,9 @@ English-first Python toolkit for the [Money Forward Cloud Accounting API v3](htt
 
 ## Quick start
 
+New here? **[docs/quickstart.md](docs/quickstart.md)** gets you from clone to asking
+Claude about your books in four steps. The short version:
+
 ```sh
 uv sync
 uv run pytest          # 100% mocked — no network, no credentials needed
@@ -25,10 +28,12 @@ uv run pytest          # 100% mocked — no network, no credentials needed
 follow the English walkthrough in [docs/oauth-setup.md](docs/oauth-setup.md). The API
 supports *only* OAuth 2.0 authorization-code flow; App Portal API keys do not work.
 
-**2. Log in** (tokens go to the Windows Credential Manager, one profile per office):
+**2. Log in** — you'll be prompted for the Client Secret with hidden input (keeps it
+out of shell history). Tokens go to your OS credential store (Windows Credential
+Manager / macOS Keychain / Linux Secret Service), one profile per office:
 
 ```sh
-uv run mfc auth login --client-id <ID> --client-secret <SECRET>
+uv run mfc auth login --client-id <ID>
 ```
 
 **3. Use it:**
@@ -70,6 +75,19 @@ uv run pytest tests/spec_lock           # 23/23 op coverage + model field parity
 On upstream drift: `fetch_spec.py --update`, translate the changed strings in
 `spec/translations.json`, re-inject (`tools/translate_spec.py inject`), regenerate
 docs (`tools/gen_reference.py`) — the tests confirm nothing was missed.
+
+## API specification provenance
+
+The toolkit's code and documentation are MIT-licensed ([LICENSE](LICENSE)). The files
+under `spec/` are different: `openapi.ja.yaml` is Money Forward, Inc.'s official API
+specification (downloaded from their developer site, where it is offered for download
+including as generative-AI input), and `openapi.en.yaml` / `translations.json` are
+translations derived from it. **These remain Money Forward's intellectual property**
+(API Terms of Use, Art. 12) and are included solely to document the API for
+interoperability, with this attribution. They are not covered by the MIT license. If
+Money Forward requests changes to how the specification is redistributed, this
+repository will comply — the pinned copy can be replaced by a fetch-on-setup step
+(`uv run python tools/fetch_spec.py --update`) without affecting functionality.
 
 ## Note: Money Forward's official remote MCP server
 

@@ -45,11 +45,17 @@ once, then `mfc auth login` handles everything else.
 ## 3. Log in
 
 ```sh
-uv run mfc auth login --client-id <CLIENT_ID> --client-secret <CLIENT_SECRET>
+uv run mfc auth login --client-id <CLIENT_ID>
 ```
 
-- The Client ID is saved to `%APPDATA%\mfcloud\config.toml`; the secret and all tokens
-  go to the **Windows Credential Manager** (never plain files).
+- You'll be prompted for the Client Secret with **hidden input** — prefer this over
+  the `--client-secret` flag, which would linger in your shell history.
+- The Client ID is saved to `%APPDATA%\mfcloud\config.toml` (`~/.config/mfcloud/` on
+  macOS/Linux); the secret and all tokens go to your **OS credential store** — Windows
+  Credential Manager, macOS Keychain, or Linux Secret Service (GNOME Keyring/KWallet).
+  Never plain files. Headless Linux has no Secret Service by default: install/run a
+  keyring daemon, or log in from a desktop session. Avoid plaintext keyring backends
+  (e.g. `keyrings.alt`) for accounting credentials.
 - A browser opens on Money Forward's consent screen. Pick the office you want to
   authorize — **tokens are office-scoped**. The chosen office = this profile.
 - Headless/broken browser? Use `mfc auth login --manual` and paste the redirect URL back.

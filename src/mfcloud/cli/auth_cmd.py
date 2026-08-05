@@ -18,7 +18,12 @@ def login(
     profile: str = typer.Option(None, "--profile", help="Profile (one per office)."),
     client_id: str = typer.Option(None, "--client-id", help="OAuth Client ID (saved to config)."),
     client_secret: str = typer.Option(
-        None, "--client-secret", help="OAuth Client Secret (saved to the OS keyring)."
+        None,
+        "--client-secret",
+        help=(
+            "OAuth Client Secret (saved to the OS keyring). Prefer omitting this flag —"
+            " you'll be prompted with hidden input, keeping the secret out of shell history."
+        ),
     ),
     manual: bool = typer.Option(
         False, "--manual", help="Print the URL and paste the redirect back (no local server)."
@@ -41,8 +46,9 @@ def login(
         raise typer.Exit(2)
     secret = store.load_client_secret()
     if not secret:
-        typer.echo("No Client Secret stored. Pass --client-secret once to save it.", err=True)
-        raise typer.Exit(2)
+        secret = typer.prompt("Client Secret (input hidden, saved to OS keyring)",
+                              hide_input=True)
+        store.save_client_secret(secret)
 
     resolved = config.resolve_profile(profile)
     tokens = oauth_login(config.client_id, secret, config.redirect_port, manual=manual)
