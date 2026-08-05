@@ -29,6 +29,7 @@ from mfcloud.resources.offices import OfficesResource
 from mfcloud.resources.reports import ReportsResource
 from mfcloud.resources.trade_partners import TradePartnersResource
 from mfcloud.resources.transactions import TransactionsResource
+from mfcloud.resources.vouchers import VouchersResource
 
 
 class MFClient:
@@ -55,6 +56,7 @@ class MFClient:
         self.journals = JournalsResource(self)
         self.transactions = TransactionsResource(self)
         self.reports = ReportsResource(self)
+        self.vouchers = VouchersResource(self)
 
     @classmethod
     def from_profile(cls, profile: str | None = None) -> MFClient:

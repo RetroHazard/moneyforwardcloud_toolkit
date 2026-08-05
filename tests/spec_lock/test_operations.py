@@ -7,20 +7,13 @@ import httpx
 import yaml
 
 from mfcloud.client import MFClient
-from mfcloud.models import MODEL_FOR_SCHEMA
+from mfcloud.models import MODEL_FOR_SCHEMA, REQUEST_MODEL_FOR_SCHEMA
 from mfcloud.resources.base import Resource
 
 SPEC = yaml.safe_load(
     (Path(__file__).resolve().parent.parent.parent / "spec" / "openapi.en.yaml")
     .read_text(encoding="utf-8")
 )
-
-# Write operations arrive in Phase 6; spec-lock then requires full 23/23 coverage.
-NOT_YET_IMPLEMENTED = {
-    "postJournals", "putJournals", "deleteJournals",
-    "postVouchers", "deleteVouchers",
-    "postTradePartners", "postTransactions", "postTransactionJournalize",
-}
 
 
 def spec_operation_ids() -> set[str]:
@@ -44,19 +37,21 @@ def implemented_operation_ids() -> set[str]:
     return ids
 
 
-def test_operation_coverage():
-    expected = spec_operation_ids() - NOT_YET_IMPLEMENTED
+def test_operation_coverage_is_complete():
+    """Every one of the spec's 23 operations has exactly one tagged client method."""
+    expected = spec_operation_ids()
     implemented = implemented_operation_ids()
+    assert len(expected) == 23
     missing = expected - implemented
-    phantom = implemented - spec_operation_ids()
+    phantom = implemented - expected
     assert not missing, f"spec operations without client methods: {sorted(missing)}"
     assert not phantom, f"client methods claiming nonexistent operations: {sorted(phantom)}"
 
 
-def test_model_fields_match_spec_schemas():
+def _assert_field_parity(mapping) -> list[str]:
     schemas = SPEC["components"]["schemas"]
     problems = []
-    for schema_name, model in MODEL_FOR_SCHEMA.items():
+    for schema_name, model in mapping.items():
         spec_fields = set(schemas[schema_name].get("properties", {}))
         spec_fields.discard("XMLName")  # codegen artifact in error schemas, not real data
         model_fields = set(model.model_fields)
@@ -65,7 +60,17 @@ def test_model_fields_match_spec_schemas():
                 f"{schema_name}: missing={sorted(spec_fields - model_fields)}"
                 f" extra={sorted(model_fields - spec_fields)}"
             )
+    return problems
+
+
+def test_response_model_fields_match_spec_schemas():
+    problems = _assert_field_parity(MODEL_FOR_SCHEMA)
     assert not problems, "model/schema field drift:\n" + "\n".join(problems)
+
+
+def test_request_model_fields_match_spec_schemas():
+    problems = _assert_field_parity(REQUEST_MODEL_FOR_SCHEMA)
+    assert not problems, "request model/schema field drift:\n" + "\n".join(problems)
 
 
 def test_required_spec_fields_are_required_on_models():

@@ -21,3 +21,14 @@ class Transaction(MFModel):
 class GetTransactionsResponse(MFModel):
     transactions: list[Transaction]
     metadata: Metadata
+
+
+class CreatedTransaction(MFModel):
+    """Echo of a manually created transaction (spec: PostTransactionsResponse item)."""
+
+    id: str
+    date: str
+    value: int
+    side: str
+    content: str
+    memo: str | None = None

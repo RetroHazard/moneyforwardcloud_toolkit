@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 
-from mfcloud.models.transactions import GetTransactionsResponse, Transaction
+from mfcloud.models.journals import JournalItem
+from mfcloud.models.requests import JournalizeRequest, NewTransaction
+from mfcloud.models.transactions import (
+    CreatedTransaction,
+    GetTransactionsResponse,
+    Transaction,
+)
 from mfcloud.resources.base import Resource, operation
 
 
@@ -58,3 +64,25 @@ class TransactionsResource(Resource):
             if page >= response.metadata.total_pages:
                 return
             page += 1
+
+    @operation("postTransactions")
+    def create(
+        self, connected_account_id: str, transactions: list[NewTransaction | dict]
+    ) -> list[CreatedTransaction]:
+        """Register manual transactions under a connected (manual) account."""
+        body = {
+            "connected_account_id": connected_account_id,
+            "transactions": [
+                NewTransaction.model_validate(t).model_dump(exclude_none=True)
+                for t in transactions
+            ],
+        }
+        data = self._client.post("/api/v3/transactions", json=body)
+        return [CreatedTransaction.model_validate(t) for t in data["transactions"]]
+
+    @operation("postTransactionJournalize")
+    def journalize(self, request: JournalizeRequest | dict) -> JournalItem:
+        """Create a journal entry from an imported transaction (one call per transaction)."""
+        body = JournalizeRequest.model_validate(request).model_dump(exclude_none=True)
+        data = self._client.post("/api/v3/transactions/journalize", json=body)
+        return JournalItem.model_validate(data["journal"])

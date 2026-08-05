@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 
 from mfcloud.models.journals import GetJournalsResponse, JournalItem
+from mfcloud.models.requests import NewJournal
 from mfcloud.resources.base import Resource, operation
 
 
@@ -49,3 +50,22 @@ class JournalsResource(Resource):
     def get(self, journal_id: str) -> JournalItem:
         data = self._client.get(f"/api/v3/journals/{journal_id}")
         return JournalItem.model_validate(data["journal"])
+
+    @operation("postJournals")
+    def create(self, journal: NewJournal | dict) -> JournalItem:
+        """Create a journal entry. Debits and credits must balance."""
+        body = {"journal": NewJournal.model_validate(journal).model_dump(exclude_none=True)}
+        data = self._client.post("/api/v3/journals", json=body)
+        return JournalItem.model_validate(data["journal"])
+
+    @operation("putJournals")
+    def update(self, journal_id: str, journal: NewJournal | dict) -> JournalItem:
+        """Replace a journal entry (full update — send every line, not a diff)."""
+        body = {"journal": NewJournal.model_validate(journal).model_dump(exclude_none=True)}
+        data = self._client.put(f"/api/v3/journals/{journal_id}", json=body)
+        return JournalItem.model_validate(data["journal"])
+
+    @operation("deleteJournals")
+    def delete(self, journal_id: str) -> None:
+        """Permanently delete a journal entry."""
+        self._client.delete(f"/api/v3/journals/{journal_id}")

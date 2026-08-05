@@ -23,7 +23,12 @@ from mfcloud.models.masters import (
 )
 from mfcloud.models.office import AccountingPeriod, Office
 from mfcloud.models.reports import TBResponse, TBRow, TransitionResponse, TransitionRow
-from mfcloud.models.transactions import GetTransactionsResponse, Transaction
+from mfcloud.models.requests import REQUEST_MODEL_FOR_SCHEMA
+from mfcloud.models.transactions import (
+    CreatedTransaction,
+    GetTransactionsResponse,
+    Transaction,
+)
 
 MODEL_FOR_SCHEMA: dict[str, type[MFModel]] = {
     "Account": Account,
@@ -48,6 +53,11 @@ MODEL_FOR_SCHEMA: dict[str, type[MFModel]] = {
     "TBRow": TBRow,
     "TransitionResponse": TransitionResponse,
     "TransitionRow": TransitionRow,
+    "PostTransactionsResponse_transactions_inner": CreatedTransaction,
 }
 
-__all__ = ["MODEL_FOR_SCHEMA", *sorted(cls.__name__ for cls in set(MODEL_FOR_SCHEMA.values()))]
+__all__ = [
+    "MODEL_FOR_SCHEMA",
+    "REQUEST_MODEL_FOR_SCHEMA",
+    *sorted(cls.__name__ for cls in set(MODEL_FOR_SCHEMA.values())),
+]
