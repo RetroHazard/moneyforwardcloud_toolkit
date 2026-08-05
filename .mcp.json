@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mf-accounting": {
+      "command": "uv",
+      "args": ["run", "mfc-mcp"],
+      "env": {
+        "MFC_PROFILE": "default"
+      }
+    }
+  }
+}
