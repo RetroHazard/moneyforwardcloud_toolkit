@@ -1,0 +1,1858 @@
+{
+ "/info/description": {
+  "ja": "# 基本情報\n当社との提携パートナーを除き、個別のお問い合わせへの対応や技術サポートの提供は原則として行っておりませんので、あらかじめご了承ください。<br />\n\n# リリースノート\nAPIの新機能や重要な変更は[リリースノート](/release-notes)でお知らせいたします。<br />\n最新情報を受け取るため、[RSSフィード](/rss.xml)の購読を推奨いたします。<br />\n\n# API仕様書のダウンロード\n生成AIへのインプット情報として本仕様書のテキスト情報(yaml形式)が必要な場合は<a download href=\"/v3/openapi.yaml\">こちら</a>からダウンロードしてください。<br />\n\n# 認証\n全てのAPIは、OAuth 2.0 を 用いて認証と認可を行います。<br />\nOAuth 2.0に従って、アクセストークンを取得してください。<br />\n取得したアクセストークンを Bearer Tokenとして Authorization Headerに付与する事で、APIリクエストが可能になります。<br />\n\n# エラーレスポンス\n全てのAPIは3種類のステータスコード（2xx, 4xx, 5xx）を返却します。<br />\n4xx, 5xx の場合は共通のレスポンスフォーマットでエラー用のレスポンスボディを返却します。<br />\nエラーレスポンスにはエラーと同じ数の要素を含む配列が用意され、それぞれエラーの種別である code とエラー内容の message を含みます。<br />\n\n# Rate limiter\n[ドキュメントのリンク](/rate_limiter)\n",
+  "en": "# Basic Information\nPlease note that, as a rule, we do not respond to individual inquiries or provide technical support, except for our partner companies.<br />\n\n# Release Notes\nNew API features and important changes are announced in the [release notes](/release-notes).<br />\nTo receive the latest updates, we recommend subscribing to the [RSS feed](/rss.xml).<br />\n\n# Downloading the API Specification\nIf you need the text of this specification (yaml format) as input for generative AI, download it from <a download href=\"/v3/openapi.yaml\">here</a>.<br />\n\n# Authentication\nAll APIs perform authentication and authorization using OAuth 2.0.<br />\nObtain an access token in accordance with OAuth 2.0.<br />\nAPI requests become possible by attaching the obtained access token to the Authorization header as a Bearer Token.<br />\n\n# Error Responses\nAll APIs return three types of status codes (2xx, 4xx, 5xx).<br />\nFor 4xx and 5xx, an error response body is returned in a common response format.<br />\nThe error response contains an array with as many elements as there are errors, each containing a code indicating the error type and a message describing the error details.<br />\n\n# Rate limiter\n[Documentation link](/rate_limiter)\n"
+ },
+ "/tags/1/description": {
+  "ja": "事業者情報API",
+  "en": "Office information API"
+ },
+ "/tags/5/description": {
+  "ja": "税区分API",
+  "en": "Tax category API"
+ },
+ "/tags/9/description": {
+  "ja": "推移表（BS）取得API",
+  "en": "Transition report (BS) retrieval API"
+ },
+ "/tags/13/description": {
+  "ja": "明細API",
+  "en": "Transaction API"
+ },
+ "/paths/~1api~1v3~1accounts/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1accounts/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/summary": {
+  "ja": "連携サービスの取得",
+  "en": "Retrieve connected services"
+ },
+ "/paths/~1api~1v3~1offices/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1offices/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/1/description": {
+  "ja": "対象期間の終了日を指定します。各仕訳の取引日が基準になります。",
+  "en": "Specifies the end date of the target period. The transaction date of each journal entry is used as the basis."
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/5/description": {
+  "ja": "ページ番号",
+  "en": "Page number"
+ },
+ "/paths/~1api~1v3~1journals/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1journals/get/summary": {
+  "ja": "仕訳一覧の取得",
+  "en": "Retrieve journal entry list"
+ },
+ "/paths/~1api~1v3~1journals/post/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1journals/post/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/parameters/0/description": {
+  "ja": "必要なIDを指定します。",
+  "en": "Specify the required ID."
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/description": {
+  "ja": "指定された仕訳IDで現在の事業者の特定の仕訳を返します。",
+  "en": "Returns the specific journal entry of the current office for the specified journal entry ID."
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/summary": {
+  "ja": "仕訳の取得",
+  "en": "Retrieve a journal entry"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/description": {
+  "ja": "仕訳と証憑の関連付けを解除します。",
+  "en": "Removes the association between a journal entry and a voucher."
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1vouchers/post/requestBody/description": {
+  "ja": "リクエストボディ",
+  "en": "Request body"
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1vouchers/post/summary": {
+  "ja": "証憑の新規保存",
+  "en": "Save a new voucher"
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/2/description": {
+  "ja": "絞り込む連携サービスのIDを指定します。connected_sub_account_idと同時に指定することはできません。",
+  "en": "Specifies the ID of the connected service to filter by. Cannot be specified together with connected_sub_account_id."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/6/description": {
+  "ja": "取引の収支種別でフィルタします。value_minおよびvalue_maxを省略した場合、指定した収支種別の全範囲が適用されます。value_minまたはvalue_maxを指定する場合は必須です。",
+  "en": "Filters by the income/expense type of the transaction. If value_min and value_max are omitted, the full range of the specified income/expense type is applied. Required when value_min or value_max is specified."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/10/description": {
+  "ja": "取引日によるソート順を指定します。省略した場合はdescが適用されます。",
+  "en": "Specifies the sort order by transaction date. If omitted, desc is applied."
+ },
+ "/paths/~1api~1v3~1transactions/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1transactions/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/201/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/description": {
+  "ja": "指定された明細から仕訳を作成します。",
+  "en": "Creates a journal entry from the specified transaction."
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1departments/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1departments/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1taxes/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1taxes/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/0/description": {
+  "ja": "会計年度を指定します。<br />\n指定しない場合は最新の会計年度が使用されます。",
+  "en": "Specifies the fiscal year.<br />\nIf not specified, the latest fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/4/description": {
+  "ja": "対象期間の終了日を指定します。",
+  "en": "Specifies the end date of the target period."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/0/description": {
+  "ja": "会計年度を指定します。<br />\n指定しない場合は最新の会計年度が使用されます。",
+  "en": "Specifies the fiscal year.<br />\nIf not specified, the latest fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/4/description": {
+  "ja": "対象期間の終了日を指定します。",
+  "en": "Specifies the end date of the target period."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/parameters/0/description": {
+  "ja": "推移表の集計タイプを指定します。<br />\n現在は 'monthly' のみがサポートされています。<br />\n- monthly: 月次集計",
+  "en": "Specifies the aggregation type of the transition report.<br />\nCurrently only 'monthly' is supported.<br />\n- monthly: monthly aggregation"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/parameters/4/description": {
+  "ja": "勘定科目に紐づく補助科目の金額を取得するかどうかを指定します。",
+  "en": "Specifies whether to retrieve the amounts of sub-accounts linked to accounts."
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/summary": {
+  "ja": "推移表の貸借対照表の取得",
+  "en": "Retrieve the balance sheet transition report"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/parameters/2/description": {
+  "ja": "対象会計年度の集計開始月を指定します。<br />\n`fiscal_year` と組み合わせて集計開始月を指定できます。<br />\n指定しない場合は会計年度の開始月が使用されます。",
+  "en": "Specifies the aggregation start month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation start month.<br />\nIf not specified, the start month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/201/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1term_settings/get/description": {
+  "ja": "全ての会計年度設定を取得します。<br />\n会計年度は開始日の降順でソートされます。",
+  "en": "Retrieves all fiscal year settings.<br />\nFiscal years are sorted in descending order by start date."
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1term_settings/get/summary": {
+  "ja": "会計年度設定の取得",
+  "en": "Retrieve fiscal year settings"
+ },
+ "/components/parameters/IsRealized/description": {
+  "ja": "未実現の仕訳であるかを指定するフラグ<br />\n指定しない場合は全ての仕訳が返却されます。",
+  "en": "Flag specifying whether the journal entry is unrealized<br />\nIf not specified, all journal entries are returned."
+ },
+ "/components/parameters/Id/description": {
+  "ja": "必要なIDを指定します。",
+  "en": "Specify the required ID."
+ },
+ "/components/parameters/ConnectedSubAccountId/description": {
+  "ja": "絞り込む口座のIDを指定します。省略した場合、connected_account_idに紐づく全ての口座が対象になります。connected_account_idと同時に指定することはできません。",
+  "en": "Specifies the ID of the account to filter by. If omitted, all accounts linked to the connected_account_id are targeted. Cannot be specified together with connected_account_id."
+ },
+ "/components/parameters/Content/description": {
+  "ja": "取引内容でフィルタします。マッチ方法はcontent_match_typeで指定します。",
+  "en": "Filters by transaction content. The match method is specified with content_match_type."
+ },
+ "/components/parameters/TransactionsPerPage/description": {
+  "ja": "1ページあたりの件数（デフォルト: 50、最小: 10、最大: 1000）",
+  "en": "Number of items per page (default: 50, minimum: 10, maximum: 1000)"
+ },
+ "/components/parameters/EndMonthTB/description": {
+  "ja": "対象会計年度の集計終了月を指定します。<br />\n`fiscal_year` と組み合わせて集計終了月を指定できます。<br />\n指定しない場合は会計年度の終了月が使用されます。",
+  "en": "Specifies the aggregation end month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation end month.<br />\nIf not specified, the end month of the fiscal year is used."
+ },
+ "/components/parameters/IncludeTax/description": {
+  "ja": "税込で算出するかどうかを指定します。<br />\n「事業者設定＞経理方式」が「税抜（内税）」の場合のみ指定可能です。<br />\n「税込」および「税抜（別記）」の経理方式の場合、このパラメーターは無視されます。",
+  "en": "Specifies whether to calculate on a tax-inclusive basis.<br />\nCan only be specified when \"Office Settings > Accounting Method\" is 「税抜（内税）」 (tax-exclusive, internal tax).<br />\nFor the 「税込」 (tax-inclusive) and 「税抜（別記）」 (tax-exclusive, separately stated) accounting methods, this parameter is ignored."
+ },
+ "/components/parameters/TransitionStartMonth/description": {
+  "ja": "対象会計年度の集計開始月を指定します。<br />\n`fiscal_year` と組み合わせて集計開始月を指定できます。<br />\n指定しない場合は会計年度の開始月が使用されます。",
+  "en": "Specifies the aggregation start month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation start month.<br />\nIf not specified, the start month of the fiscal year is used."
+ },
+ "/components/schemas/PostVouchersResponse/properties/voucher_file_ids/description": {
+  "ja": "証憑IDのリスト",
+  "en": "List of voucher IDs"
+ },
+ "/components/schemas/Account/properties/financial_statement_type/description": {
+  "ja": "財務諸表区分",
+  "en": "Financial statement category"
+ },
+ "/components/schemas/Account/properties/search_key/description": {
+  "ja": "検索キー",
+  "en": "Search key"
+ },
+ "/components/schemas/Tax/properties/abbreviation/description": {
+  "ja": "省略名",
+  "en": "Abbreviated name"
+ },
+ "/components/schemas/SubAccount/properties/account_id/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/components/schemas/SubAccount/properties/tax_id/description": {
+  "ja": "税区分ID",
+  "en": "Tax category ID"
+ },
+ "/components/schemas/Office/properties/employee_count/description": {
+  "ja": "従業員数<br />\n法人事業者の場合のみ返却されます。<br />\n - \"NOT_SELECTED\": 未選択\n - \"OWNER_ONLY\": 経営者のみ\n - \"RANGE_1_5\": 1〜5人\n - \"RANGE_6_10\": 6〜10人\n - \"RANGE_11_30\": 11〜30人\n - \"RANGE_31_50\": 31〜50人\n - \"RANGE_51_100\": 51〜100人\n - \"RANGE_101_OR_MORE\": 101人以上",
+  "en": "Number of employees<br />\nReturned only for corporate offices.<br />\n - \"NOT_SELECTED\": not selected\n - \"OWNER_ONLY\": owner only\n - \"RANGE_1_5\": 1-5 people\n - \"RANGE_6_10\": 6-10 people\n - \"RANGE_11_30\": 11-30 people\n - \"RANGE_31_50\": 31-50 people\n - \"RANGE_51_100\": 51-100 people\n - \"RANGE_101_OR_MORE\": 101 or more people"
+ },
+ "/components/schemas/Office/properties/accounting_periods/description": {
+  "ja": "会計年度",
+  "en": "Fiscal year"
+ },
+ "/components/schemas/JournalLineDetails/properties/value/description": {
+  "ja": "金額",
+  "en": "Amount"
+ },
+ "/components/schemas/JournalLineDetails/properties/sub_account_id/description": {
+  "ja": "補助科目ID",
+  "en": "Sub-account ID"
+ },
+ "/components/schemas/JournalLineDetails/properties/tax_name/description": {
+  "ja": "税区分省略名",
+  "en": "Tax category abbreviated name"
+ },
+ "/components/schemas/JournalLineDetails/properties/trade_partner_code/description": {
+  "ja": "取引先コード",
+  "en": "Trade partner code"
+ },
+ "/components/schemas/TradePartnersResponse/properties/trade_partners/description": {
+  "ja": "取引先のリスト",
+  "en": "List of trade partners"
+ },
+ "/components/schemas/ConnectedAccount/properties/is_manual/description": {
+  "ja": "明細を手動管理する連携サービスかどうか",
+  "en": "Whether this is a connected service whose transactions are managed manually"
+ },
+ "/components/schemas/ConnectedSubAccount/properties/id/description": {
+  "ja": "連携サービスの口座ID",
+  "en": "Account ID of the connected service"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/transaction_id/description": {
+  "ja": "仕訳登録する明細のID",
+  "en": "ID of the transaction to register as a journal entry"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/account_id/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/tax_id/description": {
+  "ja": "税区分ID",
+  "en": "Tax category ID"
+ },
+ "/components/schemas/Transaction/properties/date/description": {
+  "ja": "取引日（YYYY-MM-DD形式）",
+  "en": "Transaction date (YYYY-MM-DD format)"
+ },
+ "/components/schemas/Transaction/properties/memo/description": {
+  "ja": "メモ",
+  "en": "Memo"
+ },
+ "/components/schemas/Transaction/properties/voucher_file_ids/description": {
+  "ja": "この明細に紐づく証憑のIDリスト",
+  "en": "List of IDs of the vouchers linked to this transaction"
+ },
+ "/components/schemas/PostTransactionsResponse/properties/connected_account_id/description": {
+  "ja": "明細を作成した連携サービスID",
+  "en": "ID of the connected service in which the transaction was created"
+ },
+ "/components/schemas/TermSetting/properties/start_date/description": {
+  "ja": "会計年度開始日",
+  "en": "Fiscal year start date"
+ },
+ "/components/schemas/TermSetting/properties/business_types/description": {
+  "ja": "事業種別<br />\n - \"MANUFACTURING\": 製造業\n - \"EDUCATION\": 教育\n - \"MEDICAL_WELFARE\": 医療/福祉\n - \"INFORMATION_COMMUNICATION\": 情報通信\n - \"FOOD_SERVICE\": 飲食業\n - \"TRANSPORTATION\": 運送業\n - \"WHOLESALE\": 卸売業\n - \"RETAIL\": 小売業\n - \"FINANCE_INSURANCE\": 金融保険業\n - \"REAL_ESTATE\": 不動産業\n - \"SERVICES\": サービス業\n - \"OTHER\": その他\n - \"CONSTRUCTION\": 建設業",
+  "en": "Business type<br />\n - \"MANUFACTURING\": manufacturing\n - \"EDUCATION\": education\n - \"MEDICAL_WELFARE\": medical/welfare\n - \"INFORMATION_COMMUNICATION\": information and communication\n - \"FOOD_SERVICE\": food service\n - \"TRANSPORTATION\": transportation\n - \"WHOLESALE\": wholesale\n - \"RETAIL\": retail\n - \"FINANCE_INSURANCE\": finance and insurance\n - \"REAL_ESTATE\": real estate\n - \"SERVICES\": services\n - \"OTHER\": other\n - \"CONSTRUCTION\": construction"
+ },
+ "/components/schemas/TermSetting/properties/purchases_rounding_method/description": {
+  "ja": "仕入の端数処理方法",
+  "en": "Rounding method for purchases"
+ },
+ "/components/schemas/JournalItem/properties/term_period/description": {
+  "ja": "会計年度",
+  "en": "Fiscal year"
+ },
+ "/components/schemas/JournalItem/properties/create_time/description": {
+  "ja": "仕訳が作成された日時",
+  "en": "Date and time the journal entry was created"
+ },
+ "/components/schemas/JournalItem/properties/voucher_file_ids/description": {
+  "ja": "添付された証憑IDの配列",
+  "en": "Array of attached voucher IDs"
+ },
+ "/components/schemas/Department/properties/name/description": {
+  "ja": "部門名称",
+  "en": "Department name"
+ },
+ "/components/schemas/TradePartnersError/description": {
+  "ja": "取引先APIのエラー",
+  "en": "Trade partner API error"
+ },
+ "/components/schemas/JournalLine/properties/remark/description": {
+  "ja": "摘要",
+  "en": "Remark"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/sub_account_id/description": {
+  "ja": "補助科目ID",
+  "en": "Sub-account ID"
+ },
+ "/components/schemas/CRUDJournalRequest_journal/properties/transaction_date/description": {
+  "ja": "取引日",
+  "en": "Transaction date"
+ },
+ "/components/schemas/CRUDJournalRequest_journal/properties/memo/description": {
+  "ja": "メモ",
+  "en": "Memo"
+ },
+ "/components/schemas/PostVouchersResponse_voucher_file_ids_inner/properties/file_name/description": {
+  "ja": "証憑名",
+  "en": "Voucher name"
+ },
+ "/components/schemas/TradePartnersResponse_trade_partners_inner/properties/code/description": {
+  "ja": "取引先コード",
+  "en": "Trade partner code"
+ },
+ "/components/schemas/PostTradePartnersRequest_trade_partners_inner/properties/name/description": {
+  "ja": "取引先名称",
+  "en": "Trade partner name"
+ },
+ "/components/schemas/PostTransactionsRequest_transactions_inner/properties/date/description": {
+  "ja": "取引日",
+  "en": "Transaction date"
+ },
+ "/components/schemas/PostTransactionsRequest_transactions_inner/properties/memo/description": {
+  "ja": "取引メモ<br />\n最大長は200文字です。ただし含まれる文字種の比率によってはそれよりも短くなります。（全てASCII文字であれば200文字、全て全角文字であれば74文字が目安。）",
+  "en": "Transaction memo<br />\nThe maximum length is 200 characters. However, it may be shorter depending on the ratio of character types included. (As a guideline: 200 characters if all ASCII characters, 74 characters if all full-width characters.)"
+ },
+ "/components/schemas/PostTransactionsResponse_transactions_inner/properties/side/description": {
+  "ja": "収入または支出",
+  "en": "Income or expense"
+ },
+ "/info/title": {
+  "ja": "マネーフォワード クラウド会計API",
+  "en": "Money Forward Cloud Accounting API"
+ },
+ "/tags/2/description": {
+  "ja": "仕訳帳API",
+  "en": "Journal book API"
+ },
+ "/tags/6/description": {
+  "ja": "補助科目API",
+  "en": "Sub-account API"
+ },
+ "/tags/10/description": {
+  "ja": "推移表（PL）取得API",
+  "en": "Transition report (PL) retrieval API"
+ },
+ "/tags/14/description": {
+  "ja": "会計年度設定API",
+  "en": "Fiscal year settings API"
+ },
+ "/paths/~1api~1v3~1accounts/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1accounts/get/summary": {
+  "ja": "勘定科目の取得",
+  "en": "Retrieve accounts"
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1offices/get/description": {
+  "ja": "事業者情報と会計期間を取得します。<br />\n複数の会計期間が存在する場合、`accounting_periods`が配列で返却されます。<br />\n会計期間は開始日の降順で出力され、会計期間がない場合はエラーが発生します。",
+  "en": "Retrieves office information and accounting periods.<br />\nIf multiple accounting periods exist, `accounting_periods` is returned as an array.<br />\nAccounting periods are output in descending order of start date; if no accounting period exists, an error occurs."
+ },
+ "/paths/~1api~1v3~1offices/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1offices/get/summary": {
+  "ja": "事業者情報の取得",
+  "en": "Retrieve office information"
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/2/description": {
+  "ja": "勘定科目ID<br />\n指定された勘定科目を借方貸方のいずれかに持つ仕訳のみが返却されます。",
+  "en": "Account ID<br />\nOnly journal entries that have the specified account on either the debit or credit side are returned."
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/6/description": {
+  "ja": "1ページあたりの件数",
+  "en": "Number of items per page"
+ },
+ "/paths/~1api~1v3~1journals/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1journals/post/description": {
+  "ja": "仕訳を作成します。",
+  "en": "Creates a journal entry."
+ },
+ "/paths/~1api~1v3~1journals/post/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1journals/post/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/responses/204/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/parameters/0/description": {
+  "ja": "必要なIDを指定します。",
+  "en": "Specify the required ID."
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/description": {
+  "ja": "指定された仕訳IDを使用して、現在の事業者の特定の仕訳を更新します。",
+  "en": "Updates a specific journal entry of the current office using the specified journal entry ID."
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/requestBody/description": {
+  "ja": "リクエストボディ",
+  "en": "Request body"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/201/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1transactions/get/description": {
+  "ja": "連携サービスで収集された明細一覧を取得します。\n連携サービスを絞り込む場合は、connected_account_idまたはconnected_sub_account_idを指定します。\n",
+  "en": "Retrieves the list of transactions collected by connected services.\nTo narrow down by connected service, specify connected_account_id or connected_sub_account_id.\n"
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/3/description": {
+  "ja": "絞り込む口座のIDを指定します。省略した場合、connected_account_idに紐づく全ての口座が対象になります。connected_account_idと同時に指定することはできません。",
+  "en": "Specifies the ID of the account to filter by. If omitted, all accounts linked to the connected_account_id are targeted. Cannot be specified together with connected_account_id."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/7/description": {
+  "ja": "取引内容でフィルタします。マッチ方法はcontent_match_typeで指定します。",
+  "en": "Filters by transaction content. The match method is specified with content_match_type."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/11/description": {
+  "ja": "ページ番号",
+  "en": "Page number"
+ },
+ "/paths/~1api~1v3~1transactions/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1transactions/get/summary": {
+  "ja": "明細一覧の取得",
+  "en": "Retrieve transaction list"
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/requestBody/description": {
+  "ja": "リクエストボディ",
+  "en": "Request body"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/summary": {
+  "ja": "明細からの仕訳作成",
+  "en": "Create journal entries from transactions"
+ },
+ "/paths/~1api~1v3~1departments/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1departments/get/summary": {
+  "ja": "部門の取得",
+  "en": "Retrieve departments"
+ },
+ "/paths/~1api~1v3~1taxes/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1taxes/get/summary": {
+  "ja": "税区分の取得",
+  "en": "Retrieve tax categories"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/1/description": {
+  "ja": "対象会計年度の集計開始月を指定します。<br />\n`fiscal_year` と組み合わせて集計開始月を指定できます。<br />\n指定しない場合は会計年度の開始月が使用されます。",
+  "en": "Specifies the aggregation start month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation start month.<br />\nIf not specified, the start month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/5/description": {
+  "ja": "勘定科目に紐づく補助科目の金額を取得するかどうかを指定します。",
+  "en": "Specifies whether to retrieve the amounts of sub-accounts linked to accounts."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/1/description": {
+  "ja": "対象会計年度の集計開始月を指定します。<br />\n`fiscal_year` と組み合わせて集計開始月を指定できます。<br />\n指定しない場合は会計年度の開始月が使用されます。",
+  "en": "Specifies the aggregation start month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation start month.<br />\nIf not specified, the start month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/5/description": {
+  "ja": "勘定科目に紐づく補助科目の金額を取得するかどうかを指定します。",
+  "en": "Specifies whether to retrieve the amounts of sub-accounts linked to accounts."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/parameters/1/description": {
+  "ja": "会計年度を指定します。<br />\n指定しない場合は最新の会計年度が使用されます。",
+  "en": "Specifies the fiscal year.<br />\nIf not specified, the latest fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/parameters/5/description": {
+  "ja": "税込で算出するかどうかを指定します。<br />\n「事業者設定＞経理方式」が「税抜（内税）」の場合のみ指定可能です。<br />\n「税込」および「税抜（別記）」の経理方式の場合、このパラメーターは無視されます。",
+  "en": "Specifies whether to calculate on a tax-inclusive basis.<br />\nCan only be specified when \"Office Settings > Accounting Method\" is 「税抜（内税）」 (tax-exclusive, internal tax).<br />\nFor the 「税込」 (tax-inclusive) and 「税抜（別記）」 (tax-exclusive, separately stated) accounting methods, this parameter is ignored."
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/description": {
+  "ja": "推移表の損益計算書を取得します。<br />\n現在は月次のみサポートされています。<br />\n全ての項目の金額が0の勘定科目、補助科目と一部の決算書の項目は返却されません。<br />\nまた、未実現仕訳は含まれず、常に全部門合計で集計されます。<br />\n推移表の columns は指定した期間の値が返却されます。<br />",
+  "en": "Retrieves the profit and loss statement of the transition report.<br />\nCurrently, only monthly is supported.<br />\nAccounts and sub-accounts whose amounts are 0 for all items, as well as some financial statement items, are not returned.<br />\nAlso, unrealized journal entries are not included, and aggregation is always the total across all departments.<br />\nThe transition report columns return values for the specified period.<br />"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/parameters/3/description": {
+  "ja": "対象会計年度の集計終了月を指定します。<br />\n`fiscal_year` と組み合わせて集計終了月を指定できます。<br />\n指定しない場合は会計年度の終了月が使用されます。",
+  "en": "Specifies the aggregation end month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation end month.<br />\nIf not specified, the end month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/409/description": {
+  "ja": "状態が不正でリクエストを処理できない",
+  "en": "The request cannot be processed due to an invalid state"
+ },
+ "/components/parameters/JournalStartDate/description": {
+  "ja": "対象期間の開始日を指定します。各仕訳の取引日が基準になります。",
+  "en": "Specifies the start date of the target period. The transaction date of each journal entry is used as the basis."
+ },
+ "/components/parameters/TransactionIds/description": {
+  "ja": "明細IDでフィルタします（複数指定可）。",
+  "en": "Filters by transaction ID (multiple values allowed)."
+ },
+ "/components/parameters/StartDate/description": {
+  "ja": "取得対象の開始日を指定します（YYYY-MM-DD形式）。end_dateとの差は366日以内である必要があります。",
+  "en": "Specifies the start date of the retrieval range (YYYY-MM-DD format). The difference from end_date must be within 366 days."
+ },
+ "/components/parameters/ValueMin/description": {
+  "ja": "最小金額（円）。指定する場合はsideが必須です。",
+  "en": "Minimum amount (yen). If specified, side is required."
+ },
+ "/components/parameters/ContentMatchType/description": {
+  "ja": "取引内容のマッチ方法を指定します。contentが指定されていない場合は無視されます。<br />\n- exact: 完全一致<br />\n- partial: 部分一致（デフォルト）<br />\n- forward: 前方一致<br />\n- backward: 後方一致",
+  "en": "Specifies the matching method for transaction content. Ignored if content is not specified.<br />\n- exact: exact match<br />\n- partial: partial match (default)<br />\n- forward: prefix match<br />\n- backward: suffix match"
+ },
+ "/components/parameters/AccountIDSubAccount/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/components/parameters/TrialBalanceStartDate/description": {
+  "ja": "対象期間の開始日を指定します。",
+  "en": "Specifies the start date of the target period."
+ },
+ "/components/parameters/JournalTypes/description": {
+  "ja": "対象の仕訳の種別を指定します。<br />\n`journal_entry`（通常仕訳）、`adjusting_entry`（決算整理仕訳）のいずれか一方、または両方を指定できます。<br />\n省略した場合は、両方の種別が対象になります。",
+  "en": "Specifies the type of journal entries to target.<br />\nYou can specify either `journal_entry` (normal journal entries) or `adjusting_entry` (closing adjustment entries), or both.<br />\nIf omitted, both types are targeted."
+ },
+ "/components/parameters/TransitionEndMonth/description": {
+  "ja": "対象会計年度の集計終了月を指定します。<br />\n`fiscal_year` と組み合わせて集計終了月を指定できます。<br />\n指定しない場合は会計年度の終了月が使用されます。",
+  "en": "Specifies the aggregation end month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation end month.<br />\nIf not specified, the end month of the fiscal year is used."
+ },
+ "/components/schemas/DeleteVouchersRequest/properties/journal_id/description": {
+  "ja": "証憑が添付されている仕訳ID",
+  "en": "ID of the journal entry to which the voucher is attached"
+ },
+ "/components/schemas/Account/properties/name/description": {
+  "ja": "勘定科目名称",
+  "en": "Account name"
+ },
+ "/components/schemas/Account/properties/category/description": {
+  "ja": " - \"CASH_AND_DEPOSITS\": 現金及び預金\n - \"TRADE_RECEIVABLES\": 売上債権\n - \"MARKETABLE_SECURITIES\": 有価証券\n - \"INVENTORIES\": 棚卸資産\n - \"OTHER_CURRENT_ASSETS\": その他流動資産\n - \"PROPERTY_PLANT_AND_EQUIPMENT\": 有形固定資産\n - \"INTANGIBLE_ASSETS\": 無形固定資産\n - \"INVESTMENTS_AND_OTHER_ASSETS\": 投資その他の資産\n - \"DEFERRED_ASSETS\": 繰延資産\n - \"OWNERS_DRAWINGS\": 事業主貸\n - \"SUNDRIES\": 諸口\n - \"TRADE_PAYABLES\": 仕入債務\n - \"OTHER_CURRENT_LIABILITIES\": その他流動負債\n - \"NON_CURRENT_LIABILITIES\": 固定負債\n - \"EQUITY\": 資本の部\n - \"OWNERS_CAPITAL\": 事業主借\n - \"SALES_REVENUE\": 売上（収入）金額\n - \"BEGINNING_MERCHANDISE_INVENTORY\": 期首商品（製品）棚卸高\n - \"COST_OF_PURCHASED_GOODS\": 当期仕入高\n - \"ENDING_MERCHANDISE_INVENTORY\": 期末商品（製品）棚卸高\n - \"EXPENSES\": 経費\n - \"REVERSALS\": 繰戻額等\n - \"PROVISIONS\": 繰入額等\n - \"BEGINNING_RAW_MATERIALS\": 期首原材料棚卸高\n - \"COST_OF_RAW_MATERIALS\": 原材料仕入高\n - \"ENDING_RAW_MATERIALS\": 期末原材料棚卸高\n - \"LABOR_COSTS\": 労務費\n - \"OTHER_MANUFACTURING_EXPENSES\": その他の製造経費\n - \"BEGINNING_SEMI_FINISHED_AND_WIP\": 期首半製品・仕掛品棚卸高\n - \"ENDING_SEMI_FINISHED_AND_WIP\": 期末半製品・仕掛品棚卸高\n - \"REAL_ESTATE_INCOME\": 収入金額_不動産\n - \"REAL_ESTATE_EXPENSES\": 必要経費_不動産\n - \"REAL_ESTATE_EMPLOYEE_SALARY\": 専従者給与_不動産\n - \"CAPITAL_STOCK\": 資本金\n - \"STOCK_SUBSCRIPTION_DEPOSITS\": 新株式申込証拠金\n - \"LEGAL_CAPITAL_SURPLUS\": 資本準備金\n - \"OTHER_CAPITAL_SURPLUS\": その他資本剰余金\n - \"LEGAL_RETAINED_EARNINGS\": 利益準備金\n - \"APPROPRIATED_RETAINED_EARNINGS\": 積立金等\n - \"RETAINED_EARNINGS_BROUGHT_FORWARD\": 繰越利益剰余金\n - \"TREASURY_STOCK\": 自己株式\n - \"TREASURY_STOCK_SUBSCRIPTION_DEPOSITS\": 自己株式申込証拠金\n - \"VALUATION_AND_TRANSLATION_ADJUSTMENTS\": 評価・換算差額等\n - \"SUBSCRIPTION_RIGHTS_TO_SHARES\": 新株予約権\n - \"NET_SALES\": 売上高\n - \"BEGINNING_INVENTORY\": 期首棚卸高\n - \"TRANSFERS_TO_OTHER_ACCOUNTS\": 他勘定振替高\n - \"ENDING_INVENTORY\": 期末棚卸高\n - \"SELLING_GENERAL_AND_ADMINISTRATIVE_EXPENSES\": 販売費及び一般管理費\n - \"NON_OPERATING_INCOME\": 営業外収益\n - \"NON_OPERATING_EXPENSES\": 営業外費用\n - \"EXTRAORDINARY_INCOME\": 特別利益\n - \"EXTRAORDINARY_LOSSES\": 特別損失\n - \"CORPORATE_INCOME_TAXES_CURRENT\": 法人税等\n - \"CORPORATE_INCOME_TAXES_DEFERRED\": 法人税等調整額\n - \"BEGINNING_MATERIALS\": 期首材料棚卸高\n - \"COST_OF_MATERIALS\": 当期材料仕入高\n - \"ENDING_MATERIALS\": 期末材料棚卸高\n - \"MANUFACTURING_EXPENSES\": 製造経費\n - \"BEGINNING_WORK_IN_PROCESS\": 期首仕掛品棚卸高\n - \"ENDING_WORK_IN_PROCESS\": 期末仕掛品棚卸高",
+  "en": " - \"CASH_AND_DEPOSITS\": Cash and deposits\n - \"TRADE_RECEIVABLES\": Trade receivables\n - \"MARKETABLE_SECURITIES\": Marketable securities\n - \"INVENTORIES\": Inventories\n - \"OTHER_CURRENT_ASSETS\": Other current assets\n - \"PROPERTY_PLANT_AND_EQUIPMENT\": Property, plant and equipment\n - \"INTANGIBLE_ASSETS\": Intangible assets\n - \"INVESTMENTS_AND_OTHER_ASSETS\": Investments and other assets\n - \"DEFERRED_ASSETS\": Deferred assets\n - \"OWNERS_DRAWINGS\": Owner's drawings\n - \"SUNDRIES\": Sundries\n - \"TRADE_PAYABLES\": Trade payables\n - \"OTHER_CURRENT_LIABILITIES\": Other current liabilities\n - \"NON_CURRENT_LIABILITIES\": Non-current liabilities\n - \"EQUITY\": Equity\n - \"OWNERS_CAPITAL\": Owner's capital\n - \"SALES_REVENUE\": Sales (revenue) amount\n - \"BEGINNING_MERCHANDISE_INVENTORY\": Beginning merchandise (finished goods) inventory\n - \"COST_OF_PURCHASED_GOODS\": Purchases during the period\n - \"ENDING_MERCHANDISE_INVENTORY\": Ending merchandise (finished goods) inventory\n - \"EXPENSES\": Expenses\n - \"REVERSALS\": Reversals, etc.\n - \"PROVISIONS\": Provisions, etc.\n - \"BEGINNING_RAW_MATERIALS\": Beginning raw materials inventory\n - \"COST_OF_RAW_MATERIALS\": Raw materials purchases\n - \"ENDING_RAW_MATERIALS\": Ending raw materials inventory\n - \"LABOR_COSTS\": Labor costs\n - \"OTHER_MANUFACTURING_EXPENSES\": Other manufacturing expenses\n - \"BEGINNING_SEMI_FINISHED_AND_WIP\": Beginning semi-finished goods and work-in-process inventory\n - \"ENDING_SEMI_FINISHED_AND_WIP\": Ending semi-finished goods and work-in-process inventory\n - \"REAL_ESTATE_INCOME\": Income amount (real estate)\n - \"REAL_ESTATE_EXPENSES\": Necessary expenses (real estate)\n - \"REAL_ESTATE_EMPLOYEE_SALARY\": Family employee salary (real estate)\n - \"CAPITAL_STOCK\": Capital stock\n - \"STOCK_SUBSCRIPTION_DEPOSITS\": New share subscription deposits\n - \"LEGAL_CAPITAL_SURPLUS\": Legal capital surplus\n - \"OTHER_CAPITAL_SURPLUS\": Other capital surplus\n - \"LEGAL_RETAINED_EARNINGS\": Legal retained earnings\n - \"APPROPRIATED_RETAINED_EARNINGS\": Appropriated reserves, etc.\n - \"RETAINED_EARNINGS_BROUGHT_FORWARD\": Retained earnings brought forward\n - \"TREASURY_STOCK\": Treasury stock\n - \"TREASURY_STOCK_SUBSCRIPTION_DEPOSITS\": Treasury stock subscription deposits\n - \"VALUATION_AND_TRANSLATION_ADJUSTMENTS\": Valuation and translation adjustments\n - \"SUBSCRIPTION_RIGHTS_TO_SHARES\": Subscription rights to shares\n - \"NET_SALES\": Net sales\n - \"BEGINNING_INVENTORY\": Beginning inventory\n - \"TRANSFERS_TO_OTHER_ACCOUNTS\": Transfers to other accounts\n - \"ENDING_INVENTORY\": Ending inventory\n - \"SELLING_GENERAL_AND_ADMINISTRATIVE_EXPENSES\": Selling, general and administrative expenses\n - \"NON_OPERATING_INCOME\": Non-operating income\n - \"NON_OPERATING_EXPENSES\": Non-operating expenses\n - \"EXTRAORDINARY_INCOME\": Extraordinary income\n - \"EXTRAORDINARY_LOSSES\": Extraordinary losses\n - \"CORPORATE_INCOME_TAXES_CURRENT\": Corporate income taxes\n - \"CORPORATE_INCOME_TAXES_DEFERRED\": Corporate income tax adjustments\n - \"BEGINNING_MATERIALS\": Beginning materials inventory\n - \"COST_OF_MATERIALS\": Materials purchases during the period\n - \"ENDING_MATERIALS\": Ending materials inventory\n - \"MANUFACTURING_EXPENSES\": Manufacturing expenses\n - \"BEGINNING_WORK_IN_PROCESS\": Beginning work-in-process inventory\n - \"ENDING_WORK_IN_PROCESS\": Ending work-in-process inventory"
+ },
+ "/components/schemas/Tax/properties/tax_rate/description": {
+  "ja": "税率",
+  "en": "Tax rate"
+ },
+ "/components/schemas/SubAccount/properties/id/description": {
+  "ja": "補助科目ID",
+  "en": "Sub-account ID"
+ },
+ "/components/schemas/Office/properties/name/description": {
+  "ja": "事業者名称",
+  "en": "Office name"
+ },
+ "/components/schemas/Office/properties/is_real_estate/description": {
+  "ja": "不動産所得用勘定科目が利用可能かどうか<br />\n個人事業者の場合のみ返却されます。",
+  "en": "Whether accounts for real estate income are available<br />\nReturned only for sole proprietor offices."
+ },
+ "/components/schemas/AccountingPeriod/properties/start_date/description": {
+  "ja": "会計年度開始日",
+  "en": "Fiscal year start date"
+ },
+ "/components/schemas/JournalLineDetails/properties/tax_value/description": {
+  "ja": "消費税額",
+  "en": "Consumption tax amount"
+ },
+ "/components/schemas/JournalLineDetails/properties/sub_account_name/description": {
+  "ja": "補助科目名称",
+  "en": "Sub-account name"
+ },
+ "/components/schemas/JournalLineDetails/properties/department_id/description": {
+  "ja": "部門ID",
+  "en": "Department ID"
+ },
+ "/components/schemas/JournalLineDetails/properties/invoice_kind/description": {
+  "ja": "インボイス区分",
+  "en": "Invoice category"
+ },
+ "/components/schemas/PostTradePartnersRequest/properties/trade_partners/description": {
+  "ja": "保存する取引先のリスト",
+  "en": "List of trade partners to save"
+ },
+ "/components/schemas/ConnectedAccount/properties/account_id/description": {
+  "ja": "連携サービスに紐づく勘定科目ID<br />\n`connected_sub_accounts` が空であるときのみ設定されます。",
+  "en": "Account ID linked to the connected service<br />\nSet only when `connected_sub_accounts` is empty."
+ },
+ "/components/schemas/ConnectedSubAccount/properties/name/description": {
+  "ja": "連携サービスの口座の表示名",
+  "en": "Display name of the connected service's account"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/transaction_date/description": {
+  "ja": "取引日<br />\n未指定の場合は明細の取引日が使われます。",
+  "en": "Transaction date<br />\nIf not specified, the transaction date of the source transaction is used."
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/sub_account_id/description": {
+  "ja": "補助科目ID",
+  "en": "Sub-account ID"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/invoice_kind/description": {
+  "ja": "インボイス区分",
+  "en": "Invoice category"
+ },
+ "/components/schemas/Transaction/properties/value/description": {
+  "ja": "取引金額（円、正の整数）",
+  "en": "Transaction amount (yen, positive integer)"
+ },
+ "/components/schemas/Transaction/properties/journalizing_status/description": {
+  "ja": "仕訳化ステータス。<br />\n- excluded: 対象外<br />\n- none: 未仕訳<br />\n- registered: 仕訳済み<br />\n- modified: 仕訳後に明細が変更された<br />\n- new_voucher_attached: 仕訳後に初回証憑が添付された",
+  "en": "Journalizing status.<br />\n- excluded: excluded from journalizing<br />\n- none: not yet journalized<br />\n- registered: journalized<br />\n- modified: the transaction was changed after journalizing<br />\n- new_voucher_attached: the first voucher was attached after journalizing"
+ },
+ "/components/schemas/GetTransactionsResponse/properties/transactions/description": {
+  "ja": "明細の配列",
+  "en": "Array of transactions"
+ },
+ "/components/schemas/PostTransactionsResponse/properties/transactions/description": {
+  "ja": "明細のリスト",
+  "en": "List of transactions"
+ },
+ "/components/schemas/TermSetting/properties/end_date/description": {
+  "ja": "会計年度終了日",
+  "en": "Fiscal year end date"
+ },
+ "/components/schemas/TermSetting/properties/tax_method/description": {
+  "ja": "課税形式<br />\n - \"FREE\": 免税事業者\n - \"SIMPLE\": 簡易課税\n - \"PROPORTIONAL_ALLOCATION\": 原則課税（一括比例配分方式）\n - \"INDIVIDUAL_ALLOCATION\": 原則課税（個別対応方式）",
+  "en": "Taxation method<br />\n - \"FREE\": tax-exempt business (免税事業者)\n - \"SIMPLE\": simplified taxation\n - \"PROPORTIONAL_ALLOCATION\": standard taxation (lump-sum proportional allocation method)\n - \"INDIVIDUAL_ALLOCATION\": standard taxation (individual correspondence method)"
+ },
+ "/components/schemas/TermSettingsResponse/properties/term_settings/description": {
+  "ja": "会計年度設定一覧",
+  "en": "List of fiscal year settings"
+ },
+ "/components/schemas/JournalItem/properties/transaction_date/description": {
+  "ja": "取引日",
+  "en": "Transaction date"
+ },
+ "/components/schemas/JournalItem/properties/update_time/description": {
+  "ja": "仕訳が更新された日時",
+  "en": "Date and time the journal entry was updated"
+ },
+ "/components/schemas/JournalItem/properties/transaction_id/description": {
+  "ja": "仕訳に紐づく明細ID。明細から作成された仕訳の場合に設定されます。",
+  "en": "Transaction ID linked to the journal entry. Set when the journal entry was created from a transaction."
+ },
+ "/components/schemas/Department/properties/parent_id/description": {
+  "ja": "親部門ID",
+  "en": "Parent department ID"
+ },
+ "/components/schemas/TradePartnersError/properties/code/description": {
+  "ja": "取引先APIのエラーコード",
+  "en": "Error code of the trade partner API"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/value/description": {
+  "ja": "金額",
+  "en": "Amount"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/department_id/description": {
+  "ja": "部門ID",
+  "en": "Department ID"
+ },
+ "/components/schemas/CRUDJournalRequest_journal/properties/journal_type/description": {
+  "ja": "決算整理済みの仕訳であるかを指定するフラグ",
+  "en": "Flag specifying whether the journal entry is a closing adjustment entry"
+ },
+ "/components/schemas/CRUDJournalRequest_journal/properties/tags/description": {
+  "ja": "タグの配列",
+  "en": "Array of tags"
+ },
+ "/components/schemas/PostVouchersResponse_voucher_file_ids_inner/properties/file_id/description": {
+  "ja": "証憑ID",
+  "en": "Voucher ID"
+ },
+ "/components/schemas/TradePartnersResponse_trade_partners_inner/properties/invoice_registration_number/description": {
+  "ja": "適格請求書発行事業者登録番号",
+  "en": "Qualified invoice issuer registration number"
+ },
+ "/components/schemas/PostTradePartnersRequest_trade_partners_inner/properties/search_key/description": {
+  "ja": "取引先検索名称",
+  "en": "Trade partner search name"
+ },
+ "/components/schemas/PostTransactionsRequest_transactions_inner/properties/value/description": {
+  "ja": "取引金額",
+  "en": "Transaction amount"
+ },
+ "/components/schemas/PostTransactionsResponse_transactions_inner/properties/id/description": {
+  "ja": "明細のID",
+  "en": "Transaction ID"
+ },
+ "/components/schemas/PostTransactionsResponse_transactions_inner/properties/content/description": {
+  "ja": "取引内容",
+  "en": "Transaction description"
+ },
+ "/servers/0/description": {
+  "ja": "本番環境",
+  "en": "Production environment"
+ },
+ "/tags/3/description": {
+  "ja": "証憑API",
+  "en": "Voucher API"
+ },
+ "/tags/7/description": {
+  "ja": "残高試算表（BS）取得API",
+  "en": "Trial balance (BS) retrieval API"
+ },
+ "/tags/11/description": {
+  "ja": "取引先API",
+  "en": "Trade partner API"
+ },
+ "/paths/~1api~1v3~1accounts/get/description": {
+  "ja": "勘定科目を取得します。",
+  "en": "Retrieves accounts."
+ },
+ "/paths/~1api~1v3~1accounts/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/description": {
+  "ja": "連携サービスを取得します。",
+  "en": "Retrieves connected services."
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1offices/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1offices/get/responses/409/description": {
+  "ja": "状態が不正でリクエストを処理できない",
+  "en": "The request cannot be processed due to an invalid state"
+ },
+ "/paths/~1api~1v3~1journals/get/description": {
+  "ja": "会計期間や仕訳日付などの条件を指定して、仕訳一覧を取得します。<br />\nstart_date または end_dateのいずれかを指定する必要があります。指定された日付が含まれる会計期間の仕訳のみが返却されます。",
+  "en": "Retrieves a list of journal entries by specifying conditions such as the accounting period and journal entry date.<br />\nEither start_date or end_date must be specified. Only journal entries in the accounting period that contains the specified date are returned."
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/3/description": {
+  "ja": "未実現の仕訳であるかを指定するフラグ<br />\n指定しない場合は全ての仕訳が返却されます。",
+  "en": "Flag specifying whether the journal entry is unrealized<br />\nIf not specified, all journal entries are returned."
+ },
+ "/paths/~1api~1v3~1journals/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1journals/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1journals/post/requestBody/description": {
+  "ja": "リクエストボディ",
+  "en": "Request body"
+ },
+ "/paths/~1api~1v3~1journals/post/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1journals/post/summary": {
+  "ja": "仕訳の作成",
+  "en": "Create a journal entry"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/parameters/0/description": {
+  "ja": "必要なIDを指定します。",
+  "en": "Specify the required ID."
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/204/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/404/description": {
+  "ja": "指定された証憑が見つかりません",
+  "en": "The specified voucher was not found"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/summary": {
+  "ja": "証憑の添付解除",
+  "en": "Detach a voucher"
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/0/description": {
+  "ja": "取得対象の開始日を指定します（YYYY-MM-DD形式）。end_dateとの差は366日以内である必要があります。",
+  "en": "Specifies the start date of the retrieval range (YYYY-MM-DD format). The difference from end_date must be within 366 days."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/4/description": {
+  "ja": "最小金額（円）。指定する場合はsideが必須です。",
+  "en": "Minimum amount (yen). If specified, side is required."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/8/description": {
+  "ja": "取引内容のマッチ方法を指定します。contentが指定されていない場合は無視されます。<br />\n- exact: 完全一致<br />\n- partial: 部分一致（デフォルト）<br />\n- forward: 前方一致<br />\n- backward: 後方一致",
+  "en": "Specifies the matching method for transaction content. Ignored if content is not specified.<br />\n- exact: exact match<br />\n- partial: partial match (default)<br />\n- forward: prefix match<br />\n- backward: suffix match"
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/12/description": {
+  "ja": "1ページあたりの件数（デフォルト: 50、最小: 10、最大: 1000）",
+  "en": "Number of items per page (default: 50, minimum: 10, maximum: 1000)"
+ },
+ "/paths/~1api~1v3~1transactions/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1transactions/post/description": {
+  "ja": "明細を作成します。",
+  "en": "Creates transactions."
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/201/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1departments/get/description": {
+  "ja": "部門を取得します。",
+  "en": "Retrieves departments."
+ },
+ "/paths/~1api~1v3~1departments/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1taxes/get/description": {
+  "ja": "税区分を取得します。",
+  "en": "Retrieves tax categories."
+ },
+ "/paths/~1api~1v3~1taxes/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/description": {
+  "ja": "補助科目を取得します。",
+  "en": "Retrieves sub-accounts."
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/summary": {
+  "ja": "補助科目の取得",
+  "en": "Retrieve sub-accounts"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/2/description": {
+  "ja": "対象会計年度の集計終了月を指定します。<br />\n`fiscal_year` と組み合わせて集計終了月を指定できます。<br />\n指定しない場合は会計年度の終了月が使用されます。",
+  "en": "Specifies the aggregation end month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation end month.<br />\nIf not specified, the end month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/6/description": {
+  "ja": "税込で算出するかどうかを指定します。<br />\n「事業者設定＞経理方式」が「税抜（内税）」の場合のみ指定可能です。<br />\n「税込」および「税抜（別記）」の経理方式の場合、このパラメーターは無視されます。",
+  "en": "Specifies whether to calculate on a tax-inclusive basis.<br />\nCan only be specified when \"Office Settings > Accounting Method\" is 「税抜（内税）」 (tax-exclusive, internal tax).<br />\nFor the 「税込」 (tax-inclusive) and 「税抜（別記）」 (tax-exclusive, separately stated) accounting methods, this parameter is ignored."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/summary": {
+  "ja": "残高試算表の貸借対照表の取得",
+  "en": "Retrieve the balance sheet of the trial balance"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/2/description": {
+  "ja": "対象会計年度の集計終了月を指定します。<br />\n`fiscal_year` と組み合わせて集計終了月を指定できます。<br />\n指定しない場合は会計年度の終了月が使用されます。",
+  "en": "Specifies the aggregation end month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation end month.<br />\nIf not specified, the end month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/6/description": {
+  "ja": "税込で算出するかどうかを指定します。<br />\n「事業者設定＞経理方式」が「税抜（内税）」の場合のみ指定可能です。<br />\n「税込」および「税抜（別記）」の経理方式の場合、このパラメーターは無視されます。",
+  "en": "Specifies whether to calculate on a tax-inclusive basis.<br />\nCan only be specified when \"Office Settings > Accounting Method\" is 「税抜（内税）」 (tax-exclusive, internal tax).<br />\nFor the 「税込」 (tax-inclusive) and 「税抜（別記）」 (tax-exclusive, separately stated) accounting methods, this parameter is ignored."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/summary": {
+  "ja": "残高試算表の損益計算書の取得",
+  "en": "Retrieve the profit and loss statement of the trial balance"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/parameters/2/description": {
+  "ja": "対象会計年度の集計開始月を指定します。<br />\n`fiscal_year` と組み合わせて集計開始月を指定できます。<br />\n指定しない場合は会計年度の開始月が使用されます。",
+  "en": "Specifies the aggregation start month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation start month.<br />\nIf not specified, the start month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/parameters/0/description": {
+  "ja": "推移表の集計タイプを指定します。<br />\n現在は 'monthly' のみがサポートされています。<br />\n- monthly: 月次集計",
+  "en": "Specifies the aggregation type of the transition report.<br />\nCurrently only 'monthly' is supported.<br />\n- monthly: monthly aggregation"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/parameters/4/description": {
+  "ja": "勘定科目に紐づく補助科目の金額を取得するかどうかを指定します。",
+  "en": "Specifies whether to retrieve the amounts of sub-accounts linked to accounts."
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/summary": {
+  "ja": "推移表の損益計算書の取得",
+  "en": "Retrieve the profit and loss statement of the transition report"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/summary": {
+  "ja": "取引先の取得",
+  "en": "Retrieve trade partners"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/components/parameters/JournalEndDate/description": {
+  "ja": "対象期間の終了日を指定します。各仕訳の取引日が基準になります。",
+  "en": "Specifies the end date of the target period. The transaction date of each journal entry is used as the basis."
+ },
+ "/components/parameters/Page/description": {
+  "ja": "ページ番号",
+  "en": "Page number"
+ },
+ "/components/parameters/EndDate/description": {
+  "ja": "取得対象の終了日を指定します（YYYY-MM-DD形式）。start_dateとの差は366日以内である必要があります。",
+  "en": "Specifies the end date of the retrieval range (YYYY-MM-DD format). The difference from start_date must be within 366 days."
+ },
+ "/components/parameters/ValueMax/description": {
+  "ja": "最大金額（円）。指定する場合はsideが必須です。",
+  "en": "Maximum amount (JPY). If specified, side is required."
+ },
+ "/components/parameters/JournalizingStatuses/description": {
+  "ja": "仕訳化ステータスでフィルタします（複数指定可）。省略した場合は全ステータスが対象になります。<br />\n- excluded: 対象外<br />\n- none: 未仕訳<br />\n- registered: 仕訳済み<br />\n- modified: 仕訳後に明細が変更された<br />\n- new_voucher_attached: 仕訳後に初回証憑が添付された",
+  "en": "Filters by journalizing status (multiple values allowed). If omitted, all statuses are included.<br />\n- excluded: excluded from journalizing<br />\n- none: not yet journalized<br />\n- registered: journalized<br />\n- modified: the transaction was modified after journalizing<br />\n- new_voucher_attached: the first voucher was attached after journalizing"
+ },
+ "/components/parameters/FiscalYearTB/description": {
+  "ja": "会計年度を指定します。<br />\n指定しない場合は最新の会計年度が使用されます。",
+  "en": "Specifies the fiscal year.<br />\nIf not specified, the latest fiscal year is used."
+ },
+ "/components/parameters/TrialBalanceEndDate/description": {
+  "ja": "対象期間の終了日を指定します。",
+  "en": "Specifies the end date of the target period."
+ },
+ "/components/parameters/TransitionType/description": {
+  "ja": "推移表の集計タイプを指定します。<br />\n現在は 'monthly' のみがサポートされています。<br />\n- monthly: 月次集計",
+  "en": "Specifies the aggregation type of the transition report.<br />\nCurrently only 'monthly' is supported.<br />\n- monthly: monthly aggregation"
+ },
+ "/components/schemas/PostVouchersRequest/properties/journal_id/description": {
+  "ja": "証憑を添付する仕訳ID",
+  "en": "ID of the journal entry to attach the voucher to"
+ },
+ "/components/schemas/DeleteVouchersRequest/properties/voucher_file_id/description": {
+  "ja": "添付解除する証憑ID",
+  "en": "ID of the voucher to detach"
+ },
+ "/components/schemas/Account/properties/available/description": {
+  "ja": "有効",
+  "en": "Active"
+ },
+ "/components/schemas/Tax/properties/id/description": {
+  "ja": "税区分ID",
+  "en": "Tax category ID"
+ },
+ "/components/schemas/Tax/properties/search_key/description": {
+  "ja": "検索キー",
+  "en": "Search key"
+ },
+ "/components/schemas/SubAccount/properties/name/description": {
+  "ja": "補助科目名称",
+  "en": "Sub-account name"
+ },
+ "/components/schemas/Office/properties/code/description": {
+  "ja": "事業者コード",
+  "en": "Office code"
+ },
+ "/components/schemas/Office/properties/is_manufacturing/description": {
+  "ja": "製造原価科目が利用可能かどうか",
+  "en": "Whether manufacturing cost accounts are available"
+ },
+ "/components/schemas/AccountingPeriod/properties/end_date/description": {
+  "ja": "会計年度終了日",
+  "en": "Fiscal year end date"
+ },
+ "/components/schemas/JournalLineDetails/properties/account_id/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/components/schemas/JournalLineDetails/properties/tax_long_name/description": {
+  "ja": "税区分名称",
+  "en": "Tax category name"
+ },
+ "/components/schemas/JournalLineDetails/properties/department_name/description": {
+  "ja": "部門名称",
+  "en": "Department name"
+ },
+ "/components/schemas/TransitionResponse/properties/start_date/description": {
+  "ja": "集計対象期間の開始日",
+  "en": "Start date of the aggregation period"
+ },
+ "/components/schemas/ConnectedAccount/properties/id/description": {
+  "ja": "連携サービスID",
+  "en": "Connected service ID"
+ },
+ "/components/schemas/ConnectedAccount/properties/sub_account_id/description": {
+  "ja": "連携サービスに紐づく補助科目ID<br />\n`connected_sub_accounts` が空であるときのみ設定されます。",
+  "en": "Sub-account ID linked to the connected service<br />\nSet only when `connected_sub_accounts` is empty."
+ },
+ "/components/schemas/ConnectedSubAccount/properties/account_id/description": {
+  "ja": "口座に紐づく勘定科目ID",
+  "en": "Account ID linked to the bank/card account (口座)"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/tags/description": {
+  "ja": "タグの配列",
+  "en": "Array of tags"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/department_id/description": {
+  "ja": "部門ID",
+  "en": "Department ID"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/remark/description": {
+  "ja": "摘要",
+  "en": "Remark"
+ },
+ "/components/schemas/Transaction/properties/side/description": {
+  "ja": "収支種別",
+  "en": "Income/expense type"
+ },
+ "/components/schemas/Transaction/properties/connected_account_id/description": {
+  "ja": "連携サービスID",
+  "en": "Connected service ID"
+ },
+ "/components/schemas/PostTransactionsRequest/properties/connected_account_id/description": {
+  "ja": "明細を作成する連携サービスID",
+  "en": "ID of the connected service in which to create the transactions"
+ },
+ "/components/schemas/TradePartnersErrorResponse/description": {
+  "ja": "取引先APIのエラーレスポンス",
+  "en": "Error response of the trade partner API"
+ },
+ "/components/schemas/TermSetting/properties/fiscal_year/description": {
+  "ja": "会計年度",
+  "en": "Fiscal year"
+ },
+ "/components/schemas/TermSetting/properties/accounting_method/description": {
+  "ja": "経理方式<br />\n課税形式が免税事業者の場合は返却されません。\n - \"TAX_INCLUDED\": 税込\n - \"TAX_EXCLUDED_SEPARATE\": 税抜（別記）\n - \"TAX_EXCLUDED_INCLUDED\": 税抜（内税）",
+  "en": "Accounting method<br />\nNot returned when the taxation type is a tax-exempt (免税) office.\n - \"TAX_INCLUDED\": 「税込」 (tax-inclusive)\n - \"TAX_EXCLUDED_SEPARATE\": 「税抜（別記）」 (tax-exclusive, separately stated)\n - \"TAX_EXCLUDED_INCLUDED\": 「税抜（内税）」 (tax-exclusive, internal tax)"
+ },
+ "/components/schemas/JournalItem/properties/id/description": {
+  "ja": "仕訳ID",
+  "en": "Journal entry ID"
+ },
+ "/components/schemas/JournalItem/properties/is_realized/description": {
+  "ja": "未実現の仕訳であるかを指定するフラグ",
+  "en": "Flag specifying whether the journal entry is unrealized"
+ },
+ "/components/schemas/JournalItem/properties/tags/description": {
+  "ja": "タグの配列",
+  "en": "Array of tags"
+ },
+ "/components/schemas/CRUDJournalLine/properties/remark/description": {
+  "ja": "摘要",
+  "en": "Remark"
+ },
+ "/components/schemas/Department/properties/search_key/description": {
+  "ja": "検索キー",
+  "en": "Search key"
+ },
+ "/components/schemas/TradePartnersError/properties/message/description": {
+  "ja": "取引先APIのエラーメッセージ",
+  "en": "Error message of the trade partner API"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/account_id/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/trade_partner_code/description": {
+  "ja": "取引先コード",
+  "en": "Trade partner code"
+ },
+ "/components/schemas/CRUDJournalRequest_journal/properties/branches/description": {
+  "ja": "最大300行まで作成可能",
+  "en": "A maximum of 300 lines can be created"
+ },
+ "/components/schemas/PostVouchersRequest_voucher_files_inner/properties/file_name/description": {
+  "ja": "証憑名",
+  "en": "Voucher name"
+ },
+ "/components/schemas/TradePartnersResponse_trade_partners_inner/properties/name/description": {
+  "ja": "取引先名称",
+  "en": "Trade partner name"
+ },
+ "/components/schemas/TradePartnersResponse_trade_partners_inner/properties/corporate_number/description": {
+  "ja": "法人番号",
+  "en": "Corporate number"
+ },
+ "/components/schemas/PostTradePartnersRequest_trade_partners_inner/properties/invoice_registration_number/description": {
+  "ja": "適格請求書発行事業者登録番号",
+  "en": "Qualified invoice issuer registration number"
+ },
+ "/components/schemas/PostTransactionsRequest_transactions_inner/properties/side/description": {
+  "ja": "収入または支出",
+  "en": "Income or expense"
+ },
+ "/components/schemas/PostTransactionsResponse_transactions_inner/properties/date/description": {
+  "ja": "取引日",
+  "en": "Transaction date"
+ },
+ "/components/schemas/PostTransactionsResponse_transactions_inner/properties/memo/description": {
+  "ja": "取引メモ",
+  "en": "Transaction memo"
+ },
+ "/tags/0/description": {
+  "ja": "勘定科目API",
+  "en": "Account API"
+ },
+ "/tags/4/description": {
+  "ja": "部門API",
+  "en": "Department API"
+ },
+ "/tags/8/description": {
+  "ja": "残高試算表（PL）取得API",
+  "en": "Trial balance (PL) retrieval API"
+ },
+ "/tags/12/description": {
+  "ja": "連携サービスAPI",
+  "en": "Connected service API"
+ },
+ "/paths/~1api~1v3~1accounts/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1accounts/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1connected_accounts/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1offices/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1offices/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/0/description": {
+  "ja": "対象期間の開始日を指定します。各仕訳の取引日が基準になります。",
+  "en": "Specifies the start date of the target period. The transaction date of each journal entry is used as the basis."
+ },
+ "/paths/~1api~1v3~1journals/get/parameters/4/description": {
+  "ja": "明細IDでフィルタします（複数指定可）。",
+  "en": "Filters by transaction ID (multiple values allowed)."
+ },
+ "/paths/~1api~1v3~1journals/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1journals/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1journals/post/responses/201/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1journals/post/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/description": {
+  "ja": "指定された仕訳IDを持つ現在の事業者内の特定の仕訳を削除します。必要に応じて利用前にバックアップを取得してください。",
+  "en": "Deletes the specific journal entry with the specified journal entry ID within the current office. Take a backup before use if necessary."
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/delete/summary": {
+  "ja": "仕訳の削除",
+  "en": "Delete a journal entry"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/requestBody/description": {
+  "ja": "リクエストボディ",
+  "en": "Request body"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1journals~1{id}/put/summary": {
+  "ja": "仕訳の更新",
+  "en": "Update a journal entry"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1vouchers/delete/responses/415/description": {
+  "ja": "リクエストのContent-Typeがサポートされていない",
+  "en": "The request Content-Type is not supported"
+ },
+ "/paths/~1api~1v3~1vouchers/post/description": {
+  "ja": "証憑を新規に保存します。<br>詳細は<a href=\"/specs/vouchers\">こちらのドキュメント</a>をご覧ください。",
+  "en": "Saves a new voucher.<br>For details, see <a href=\"/specs/vouchers\">this documentation</a>."
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1vouchers/post/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/1/description": {
+  "ja": "取得対象の終了日を指定します（YYYY-MM-DD形式）。start_dateとの差は366日以内である必要があります。",
+  "en": "Specifies the end date of the retrieval range (YYYY-MM-DD format). The difference from start_date must be within 366 days."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/5/description": {
+  "ja": "最大金額（円）。指定する場合はsideが必須です。",
+  "en": "Maximum amount (JPY). If specified, side is required."
+ },
+ "/paths/~1api~1v3~1transactions/get/parameters/9/description": {
+  "ja": "仕訳化ステータスでフィルタします（複数指定可）。省略した場合は全ステータスが対象になります。<br />\n- excluded: 対象外<br />\n- none: 未仕訳<br />\n- registered: 仕訳済み<br />\n- modified: 仕訳後に明細が変更された<br />\n- new_voucher_attached: 仕訳後に初回証憑が添付された",
+  "en": "Filters by journalizing status (multiple values allowed). If omitted, all statuses are included.<br />\n- excluded: excluded from journalizing<br />\n- none: not yet journalized<br />\n- registered: journalized<br />\n- modified: the transaction was modified after journalizing<br />\n- new_voucher_attached: the first voucher was attached after journalizing"
+ },
+ "/paths/~1api~1v3~1transactions/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1transactions/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1transactions/post/requestBody/description": {
+  "ja": "リクエストボディ",
+  "en": "Request body"
+ },
+ "/paths/~1api~1v3~1transactions/post/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1transactions/post/summary": {
+  "ja": "明細の作成",
+  "en": "Create transactions"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1transactions~1journalize/post/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1departments/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1departments/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1taxes/get/responses/200/description": {
+  "ja": "成功",
+  "en": "Success"
+ },
+ "/paths/~1api~1v3~1taxes/get/responses/429/description": {
+  "ja": "rate limitによる制限対象",
+  "en": "Subject to rate limiting"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/parameters/0/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/paths/~1api~1v3~1sub_accounts/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/description": {
+  "ja": "残高試算表の貸借対照表を取得します。<br />\n全ての項目の金額が0の勘定科目、補助科目と一部の決算書の項目は返却されません。<br />\n残高試算表の columns は\n \n - opening_balance(前期残高)\n - debit_amount(借方金額)\n - credit_amount(貸方金額)\n - closing_balance(期末残高)\n - ratio(構成比)\n\nが固定で返却されます。<br />\n\nまた、未実現仕訳は含まれず、常に全部門合計で集計されます。<br />\n\nratio(構成比) は分母が 0 の場合は算出不能として 0 ではなく null となります。<br />",
+  "en": "Retrieves the balance sheet of the trial balance.<br />\nAccounts and sub-accounts whose amounts are 0 for all items, as well as some financial statement items, are not returned.<br />\nThe trial balance columns\n \n - opening_balance(previous period balance)\n - debit_amount(debit amount)\n - credit_amount(credit amount)\n - closing_balance(end-of-period balance)\n - ratio(composition ratio)\n\nare returned as a fixed set.<br />\n\nAlso, unrealized journal entries are not included, and figures are always aggregated as the total of all departments.<br />\n\nratio(composition ratio) is null instead of 0 when the denominator is 0, as it cannot be calculated.<br />"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/3/description": {
+  "ja": "対象期間の開始日を指定します。",
+  "en": "Specifies the start date of the target period."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/parameters/7/description": {
+  "ja": "対象の仕訳の種別を指定します。<br />\n`journal_entry`（通常仕訳）、`adjusting_entry`（決算整理仕訳）のいずれか一方、または両方を指定できます。<br />\n省略した場合は、両方の種別が対象になります。",
+  "en": "Specifies the type of journal entries to target.<br />\nYou can specify either `journal_entry` (normal journal entries) or `adjusting_entry` (closing adjustment entries), or both.<br />\nIf omitted, both types are targeted."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_bs/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/description": {
+  "ja": "残高試算表の損益計算書を取得します。<br />\n全ての項目の金額が0の勘定科目、補助科目と一部の決算書の項目は返却されません。<br />\n残高試算表の columns は\n \n - opening_balance(前期残高)\n - debit_amount(借方金額)\n - credit_amount(貸方金額)\n - closing_balance(期末残高)\n - ratio(構成比)\n\nが固定で返却されます。<br />\n\nまた、未実現仕訳は含まれず、常に全部門合計で集計されます。<br />\n\nratio(構成比) は分母が 0 の場合は算出不能として 0 ではなく null となります。<br />",
+  "en": "Retrieves the profit and loss statement of the trial balance.<br />\nAccounts and sub-accounts whose amounts are 0 for all items, as well as some financial statement items, are not returned.<br />\nThe trial balance columns\n \n - opening_balance(previous period balance)\n - debit_amount(debit amount)\n - credit_amount(credit amount)\n - closing_balance(end-of-period balance)\n - ratio(composition ratio)\n\nare returned as a fixed set.<br />\n\nAlso, unrealized journal entries are not included, and figures are always aggregated as the total of all departments.<br />\n\nratio(composition ratio) is null instead of 0 when the denominator is 0, as it cannot be calculated.<br />"
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/3/description": {
+  "ja": "対象期間の開始日を指定します。",
+  "en": "Specifies the start date of the target period."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/parameters/7/description": {
+  "ja": "対象の仕訳の種別を指定します。<br />\n`journal_entry`（通常仕訳）、`adjusting_entry`（決算整理仕訳）のいずれか一方、または両方を指定できます。<br />\n省略した場合は、両方の種別が対象になります。",
+  "en": "Specifies the type of journal entries to target.<br />\nYou can specify either `journal_entry` (normal journal entries) or `adjusting_entry` (closing adjustment entries), or both.<br />\nIf omitted, both types are targeted."
+ },
+ "/paths/~1api~1v3~1reports~1trial_balance_pl/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/description": {
+  "ja": "推移表の貸借対照表を取得します。<br />\n現在は月次のみサポートされています。<br />\n全ての項目の金額が0の勘定科目、補助科目と一部の決算書の項目は返却されません。<br />\nまた、未実現仕訳は含まれず、常に全部門合計で集計されます。<br />\n推移表の columns は指定した期間の値が返却されます。<br />",
+  "en": "Retrieves the balance sheet of the transition report.<br />\nCurrently only monthly is supported.<br />\nAccounts and sub-accounts whose amounts are 0 for all items, as well as some financial statement items, are not returned.<br />\nAlso, unrealized journal entries are not included, and figures are always aggregated as the total of all departments.<br />\nThe transition report columns return the values for the specified period.<br />"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/parameters/3/description": {
+  "ja": "対象会計年度の集計終了月を指定します。<br />\n`fiscal_year` と組み合わせて集計終了月を指定できます。<br />\n指定しない場合は会計年度の終了月が使用されます。",
+  "en": "Specifies the aggregation end month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation end month.<br />\nIf not specified, the end month of the fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/responses/400/description": {
+  "ja": "リクエストのパラメータが不正",
+  "en": "Invalid request parameters"
+ },
+ "/paths/~1api~1v3~1reports~1transition_bs/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/parameters/1/description": {
+  "ja": "会計年度を指定します。<br />\n指定しない場合は最新の会計年度が使用されます。",
+  "en": "Specifies the fiscal year.<br />\nIf not specified, the latest fiscal year is used."
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/parameters/5/description": {
+  "ja": "税込で算出するかどうかを指定します。<br />\n「事業者設定＞経理方式」が「税抜（内税）」の場合のみ指定可能です。<br />\n「税込」および「税抜（別記）」の経理方式の場合、このパラメーターは無視されます。",
+  "en": "Specifies whether to calculate on a tax-inclusive basis.<br />\nCan only be specified when \"Office Settings > Accounting Method\" is 「税抜（内税）」 (tax-exclusive, internal tax).<br />\nFor the 「税込」 (tax-inclusive) and 「税抜（別記）」 (tax-exclusive, separately stated) accounting methods, this parameter is ignored."
+ },
+ "/paths/~1api~1v3~1reports~1transition_pl/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1trade_partners/get/description": {
+  "ja": "取引先を取得します。",
+  "en": "Retrieves trade partners."
+ },
+ "/paths/~1api~1v3~1trade_partners/get/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/description": {
+  "ja": "取引先を作成します。",
+  "en": "Creates trade partners."
+ },
+ "/paths/~1api~1v3~1trade_partners/post/responses/403/description": {
+  "ja": "認可されていない権限で利用ができない",
+  "en": "Cannot be used due to unauthorized permissions"
+ },
+ "/paths/~1api~1v3~1trade_partners/post/summary": {
+  "ja": "取引先の作成",
+  "en": "Create trade partners"
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/401/description": {
+  "ja": "アクセストークンが設定されていない、不正、または失効済",
+  "en": "Access token is not set, invalid, or expired"
+ },
+ "/paths/~1api~1v3~1term_settings/get/responses/500/description": {
+  "ja": "予期しないエラー",
+  "en": "Unexpected error"
+ },
+ "/components/parameters/AccountIDJournal/description": {
+  "ja": "勘定科目ID<br />\n指定された勘定科目を借方貸方のいずれかに持つ仕訳のみが返却されます。",
+  "en": "Account ID<br />\nOnly journal entries that have the specified account on either the debit or credit side are returned."
+ },
+ "/components/parameters/JournalsPerPage/description": {
+  "ja": "1ページあたりの件数",
+  "en": "Number of items per page"
+ },
+ "/components/parameters/ConnectedAccountId/description": {
+  "ja": "絞り込む連携サービスのIDを指定します。connected_sub_account_idと同時に指定することはできません。",
+  "en": "Specifies the ID of the connected service to filter by. Cannot be specified together with connected_sub_account_id."
+ },
+ "/components/parameters/Side/description": {
+  "ja": "取引の収支種別でフィルタします。value_minおよびvalue_maxを省略した場合、指定した収支種別の全範囲が適用されます。value_minまたはvalue_maxを指定する場合は必須です。",
+  "en": "Filters by the income/expense type of the transaction. If value_min and value_max are omitted, the full range of the specified income/expense type is applied. Required when value_min or value_max is specified."
+ },
+ "/components/parameters/Order/description": {
+  "ja": "取引日によるソート順を指定します。省略した場合はdescが適用されます。",
+  "en": "Specifies the sort order by transaction date. If omitted, desc is applied."
+ },
+ "/components/parameters/StartMonthTB/description": {
+  "ja": "対象会計年度の集計開始月を指定します。<br />\n`fiscal_year` と組み合わせて集計開始月を指定できます。<br />\n指定しない場合は会計年度の開始月が使用されます。",
+  "en": "Specifies the aggregation start month of the target fiscal year.<br />\nCan be combined with `fiscal_year` to specify the aggregation start month.<br />\nIf not specified, the start month of the fiscal year is used."
+ },
+ "/components/parameters/WithSubAccounts/description": {
+  "ja": "勘定科目に紐づく補助科目の金額を取得するかどうかを指定します。",
+  "en": "Specifies whether to retrieve the amounts of sub-accounts linked to accounts."
+ },
+ "/components/parameters/TransitionFiscalYear/description": {
+  "ja": "会計年度を指定します。<br />\n指定しない場合は最新の会計年度が使用されます。",
+  "en": "Specifies the fiscal year.<br />\nIf not specified, the latest fiscal year is used."
+ },
+ "/components/schemas/PostVouchersRequest/properties/voucher_files/description": {
+  "ja": "証憑のリスト",
+  "en": "List of vouchers"
+ },
+ "/components/schemas/Account/properties/id/description": {
+  "ja": "勘定科目ID",
+  "en": "Account ID"
+ },
+ "/components/schemas/Account/properties/tax_id/description": {
+  "ja": "税区分ID",
+  "en": "Tax category ID"
+ },
+ "/components/schemas/Tax/properties/name/description": {
+  "ja": "税区分名称",
+  "en": "Tax category name"
+ },
+ "/components/schemas/Tax/properties/available/description": {
+  "ja": "使用",
+  "en": "In use"
+ },
+ "/components/schemas/SubAccount/properties/search_key/description": {
+  "ja": "検索キー",
+  "en": "Search key"
+ },
+ "/components/schemas/Office/properties/type/description": {
+  "ja": "事業者区分",
+  "en": "Office type"
+ },
+ "/components/schemas/Office/properties/pl_name_value_display_option/description": {
+  "ja": "損益項目の名称・残高表示(決算書/残高試算表)<br />\n法人事業者の場合のみ返却されます。<br />\n - \"SWITCH_NAME_AND_VALUE\": 残高のプラス・マイナスに応じて、名称を「利益」「損失」に切り替える\n - \"SWITCH_NAME\": 残高のプラス・マイナスに応じて、名称を「利益」「損失」に切り替え、残高は常にプラス表示する\n - \"SWITCH_VALUE\": 名称は常に「利益」に固定し、残高をプラス・マイナスに切り替える",
+  "en": "Name/balance display of profit and loss items (financial statements/trial balance)<br />\nReturned only for corporate offices.<br />\n - \"SWITCH_NAME_AND_VALUE\": switches the name between 「利益」 (profit) and 「損失」 (loss) depending on whether the balance is positive or negative\n - \"SWITCH_NAME\": switches the name between 「利益」 (profit) and 「損失」 (loss) depending on whether the balance is positive or negative, and always displays the balance as positive\n - \"SWITCH_VALUE\": always fixes the name to 「利益」 (profit) and switches the balance between positive and negative"
+ },
+ "/components/schemas/AccountingPeriod/properties/fiscal_year/description": {
+  "ja": "会計年度",
+  "en": "Fiscal year"
+ },
+ "/components/schemas/JournalLineDetails/properties/account_name/description": {
+  "ja": "勘定科目名称",
+  "en": "Account name"
+ },
+ "/components/schemas/JournalLineDetails/properties/tax_id/description": {
+  "ja": "税区分ID",
+  "en": "Tax category ID"
+ },
+ "/components/schemas/JournalLineDetails/properties/trade_partner_name/description": {
+  "ja": "取引先名称",
+  "en": "Trade partner name"
+ },
+ "/components/schemas/TransitionResponse/properties/end_date/description": {
+  "ja": "集計対象期間の終了日",
+  "en": "End date of the aggregation period"
+ },
+ "/components/schemas/ConnectedAccount/properties/name/description": {
+  "ja": "連携サービスの表示名",
+  "en": "Display name of the connected service"
+ },
+ "/components/schemas/ConnectedAccount/properties/connected_sub_accounts/description": {
+  "ja": "連携サービスの口座一覧",
+  "en": "List of accounts of the connected service"
+ },
+ "/components/schemas/ConnectedSubAccount/properties/sub_account_id/description": {
+  "ja": "口座に紐づく補助科目ID",
+  "en": "Sub-account ID linked to the account"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/memo/description": {
+  "ja": "メモ",
+  "en": "Memo"
+ },
+ "/components/schemas/PostTransactionJournalizeRequest/properties/trade_partner_code/description": {
+  "ja": "取引先コード",
+  "en": "Trade partner code"
+ },
+ "/components/schemas/Transaction/properties/id/description": {
+  "ja": "明細ID",
+  "en": "Transaction ID"
+ },
+ "/components/schemas/Transaction/properties/content/description": {
+  "ja": "取引内容",
+  "en": "Transaction description"
+ },
+ "/components/schemas/Transaction/properties/connected_sub_account_id/description": {
+  "ja": "口座ID。明細が connected_account に直接紐付く場合、connected_sub_account_id は null になります。",
+  "en": "Account ID. If the transaction is linked directly to a connected_account, connected_sub_account_id will be null."
+ },
+ "/components/schemas/PostTransactionsRequest/properties/transactions/description": {
+  "ja": "明細のリスト",
+  "en": "List of transactions"
+ },
+ "/components/schemas/TradePartnersErrorResponse/properties/errors/description": {
+  "ja": "エラーリスト",
+  "en": "List of errors"
+ },
+ "/components/schemas/TermSetting/properties/prefecture/description": {
+  "ja": "都道府県",
+  "en": "Prefecture"
+ },
+ "/components/schemas/TermSetting/properties/sales_rounding_method/description": {
+  "ja": "売上の端数処理方法",
+  "en": "Rounding method for sales"
+ },
+ "/components/schemas/JournalItem/properties/number/description": {
+  "ja": "仕訳番号",
+  "en": "Journal entry number"
+ },
+ "/components/schemas/JournalItem/properties/journal_type/description": {
+  "ja": "決算整理済みの仕訳であるかを指定するフラグ",
+  "en": "Flag specifying whether the journal entry is a closing adjustment entry"
+ },
+ "/components/schemas/JournalItem/properties/memo/description": {
+  "ja": "メモ",
+  "en": "Memo"
+ },
+ "/components/schemas/Department/properties/id/description": {
+  "ja": "部門ID",
+  "en": "Department ID"
+ },
+ "/components/schemas/AccountGroups/description": {
+  "ja": " - “NONE”: なし\n - “ASSET”: 資産\n - “LIABILITY”: 負債\n - “CAPITAL”: 資本(純資産)\n - “REVENUE”: 収益\n - “EXPENSE”: 費用\n",
+  "en": " - “NONE”: none\n - “ASSET”: assets\n - “LIABILITY”: liabilities\n - “CAPITAL”: capital (net assets)\n - “REVENUE”: revenue\n - “EXPENSE”: expenses\n"
+ },
+ "/components/schemas/EnteredBy/description": {
+  "ja": " - “JOURNAL_TYPE_NONE”: なし\n - “JOURNAL_TYPE_NORMAL”: 通常仕訳\n - “JOURNAL_TYPE_OPENING”: 開始仕訳\n - “JOURNAL_TYPE_HOME_DEVOTE”: 家事按分機能により作成された仕訳\n - “JOURNAL_TYPE_DEPRECIATION”: 償却により発生した仕訳\n - “JOURNAL_TYPE_BILLING”: クラウド請求書から作成された仕訳\n - “JOURNAL_TYPE_PAYROLL”: クラウド給与から作成された仕訳\n - “JOURNAL_TYPE_IMPORT”: CSV import によって作成された仕訳\n - “JOURNAL_TYPE_EXPENSE”: クラウド経費から作成された仕訳\n - “JOURNAL_TYPE_DEBT”: クラウド債務支払から作成された仕訳\n - “JOURNAL_TYPE_STREAMED”: streamed (記帳システム)から作成された仕訳\n - “JOURNAL_TYPE_MOBILE_APP”: モバイルアプリから作成された仕訳\n - “JOURNAL_TYPE_ME”: マネーフォワードME から作成された仕訳\n - “JOURNAL_TYPE_AI_OCR”: AI-OCR 機能で作成された仕訳\n - “JOURNAL_TYPE_E_INVOICE”: デジタルインボイスで作成された仕訳\n - “JOURNAL_TYPE_EXTERNAL”: APIで作成された仕訳\n - “JOURNAL_TYPE_DATA_LINKAGE”: データ連携で作成された仕訳",
+  "en": " - “JOURNAL_TYPE_NONE”: none\n - “JOURNAL_TYPE_NORMAL”: normal journal entry\n - “JOURNAL_TYPE_OPENING”: opening journal entry\n - “JOURNAL_TYPE_HOME_DEVOTE”: journal entry created by the home-use allocation (家事按分) feature\n - “JOURNAL_TYPE_DEPRECIATION”: journal entry generated by depreciation\n - “JOURNAL_TYPE_BILLING”: journal entry created from Cloud Invoice\n - “JOURNAL_TYPE_PAYROLL”: journal entry created from Cloud Payroll\n - “JOURNAL_TYPE_IMPORT”: journal entry created by CSV import\n - “JOURNAL_TYPE_EXPENSE”: journal entry created from Cloud Expense\n - “JOURNAL_TYPE_DEBT”: journal entry created from Cloud Debt Payment\n - “JOURNAL_TYPE_STREAMED”: journal entry created from streamed (bookkeeping system)\n - “JOURNAL_TYPE_MOBILE_APP”: journal entry created from the mobile app\n - “JOURNAL_TYPE_ME”: journal entry created from Money Forward ME\n - “JOURNAL_TYPE_AI_OCR”: journal entry created by the AI-OCR feature\n - “JOURNAL_TYPE_E_INVOICE”: journal entry created via digital invoice\n - “JOURNAL_TYPE_EXTERNAL”: journal entry created via the API\n - “JOURNAL_TYPE_DATA_LINKAGE”: journal entry created via data linkage"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/tax_id/description": {
+  "ja": "税区分ID",
+  "en": "Tax category ID"
+ },
+ "/components/schemas/CRUDJournalLineDetails/properties/invoice_kind/description": {
+  "ja": "インボイス区分",
+  "en": "Invoice category"
+ },
+ "/components/schemas/CRUDJournalRequest_journal/properties/branches/example/1/description": {
+  "ja": "仕訳行の配列",
+  "en": "Array of journal entry lines"
+ },
+ "/components/schemas/PostVouchersRequest_voucher_files_inner/properties/file_data/description": {
+  "ja": "Base64エンコード済の証憑データ",
+  "en": "Base64-encoded voucher data"
+ },
+ "/components/schemas/TradePartnersResponse_trade_partners_inner/properties/available/description": {
+  "ja": "有効",
+  "en": "Active"
+ },
+ "/components/schemas/TradePartnersResponse_trade_partners_inner/properties/search_key/description": {
+  "ja": "取引先検索名称",
+  "en": "Trade partner search name"
+ },
+ "/components/schemas/PostTradePartnersRequest_trade_partners_inner/properties/corporate_number/description": {
+  "ja": "法人番号",
+  "en": "Corporate number"
+ },
+ "/components/schemas/PostTransactionsRequest_transactions_inner/properties/content/description": {
+  "ja": "取引内容",
+  "en": "Transaction description"
+ },
+ "/components/schemas/PostTransactionsResponse_transactions_inner/properties/value/description": {
+  "ja": "取引金額",
+  "en": "Transaction amount"
+ },
+ "/components/securitySchemes/OAuth2/description": {
+  "ja": "本 API は、OAuth 2.0 を 用いて認可を行います。",
+  "en": "This API uses OAuth 2.0 for authorization."
+ }
+}
