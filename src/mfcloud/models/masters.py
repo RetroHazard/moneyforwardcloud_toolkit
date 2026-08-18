@@ -3,6 +3,8 @@ connected services."""
 
 from __future__ import annotations
 
+from pydantic import field_validator
+
 from mfcloud.models.common import MFModel
 
 
@@ -57,3 +59,10 @@ class ConnectedAccount(MFModel):
     account_id: str
     sub_account_id: str
     connected_sub_accounts: list[ConnectedSubAccount]
+
+    @field_validator("account_id", "sub_account_id", mode="before")
+    @classmethod
+    def _default_empty_id(cls, v: str | None) -> str:
+        # API sends null instead of "" for connected accounts with no mapped
+        # chart-of-accounts entry, despite the spec marking these required.
+        return v if v is not None else ""
