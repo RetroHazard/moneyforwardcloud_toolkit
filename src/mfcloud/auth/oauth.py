@@ -6,8 +6,10 @@ token can access — hence one profile per office.
 
 Login runs a loopback listener on http://127.0.0.1:<port>/callback (the redirect URI
 registered in the App Portal), opens the browser, and exchanges the returned code.
-PKCE (S256) and a random state are always sent; a confidential client secret is used
-at the token endpoint as documented by Money Forward.
+PKCE (S256) and a random state are always sent. The confidential client secret is
+presented via HTTP Basic auth first (client_secret_basic); on a 401 the request is
+retried once with the credentials in the form body (client_secret_post), so both
+App Portal client-authentication-method registrations work without configuration.
 """
 
 from __future__ import annotations
@@ -25,7 +27,7 @@ from dataclasses import dataclass
 import httpx
 
 from mfcloud.auth.store import TokenSet, TokenStore
-from mfcloud.errors import APIErrorDetail, MFCAuthError
+from mfcloud.errors import APIErrorDetail, MFCAuthError, parse_oauth_error_details
 
 AUTHORIZE_URL = "https://api.biz.moneyforward.com/authorize"
 TOKEN_URL = "https://api.biz.moneyforward.com/token"
@@ -103,10 +105,10 @@ def exchange_code(
     http_client: httpx.Client | None = None,
 ) -> dict:
     return _token_request(
+        client_id,
+        client_secret,
         {
             "grant_type": "authorization_code",
-            "client_id": client_id,
-            "client_secret": client_secret,
             "code": code,
             "redirect_uri": redirect_uri,
             "code_verifier": code_verifier,
@@ -122,22 +124,40 @@ def refresh_grant(
     http_client: httpx.Client | None = None,
 ) -> dict:
     return _token_request(
-        {
-            "grant_type": "refresh_token",
-            "client_id": client_id,
-            "client_secret": client_secret,
-            "refresh_token": refresh_token,
-        },
+        client_id,
+        client_secret,
+        {"grant_type": "refresh_token", "refresh_token": refresh_token},
         http_client,
     )
 
 
-def _token_request(data: dict, http_client: httpx.Client | None) -> dict:
-    client = http_client or httpx.Client()
+def _token_request(
+    client_id: str,
+    client_secret: str,
+    data: dict,
+    http_client: httpx.Client | None,
+) -> dict:
+    """POST a grant to the token endpoint.
+
+    Client auth is client_secret_basic first; a 401 means the app is registered
+    with client_secret_post, so retry once with credentials in the body. A rejected
+    client-auth attempt does not consume the authorization code, so the retry is
+    safe. Fallback happens only on 401 — a 400 (invalid_grant etc.) means client
+    auth already succeeded and retrying cannot help.
+    """
+    client = http_client or httpx.Client(timeout=30.0)
     try:
-        response = client.post(TOKEN_URL, data=data)
+        response = client.post(TOKEN_URL, data=data, auth=(client_id, client_secret))
+        if response.status_code == 401:
+            response = client.post(
+                TOKEN_URL,
+                data={**data, "client_id": client_id, "client_secret": client_secret},
+            )
         if response.status_code >= 400:
-            raise MFCAuthError(status=response.status_code, details=[])
+            raise MFCAuthError(
+                status=response.status_code,
+                details=parse_oauth_error_details(response),
+            )
         return response.json()
     finally:
         if http_client is None:

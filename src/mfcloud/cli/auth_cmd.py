@@ -36,7 +36,7 @@ def login(
         config.client_id = client_id
         config.save()
     if client_secret:
-        store.save_client_secret(client_secret)
+        store.save_client_secret(client_secret.strip())
     if not config.client_id:
         typer.echo(
             "No Client ID configured. Register an OAuth app first (see docs/oauth-setup.md),"
@@ -47,7 +47,7 @@ def login(
     secret = store.load_client_secret()
     if not secret:
         secret = typer.prompt("Client Secret (input hidden, saved to OS keyring)",
-                              hide_input=True)
+                              hide_input=True).strip()
         store.save_client_secret(secret)
 
     resolved = config.resolve_profile(profile)
