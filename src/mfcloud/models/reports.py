@@ -6,6 +6,8 @@ contain accounts, which contain sub-accounts (row `type` distinguishes levels).
 
 from __future__ import annotations
 
+from pydantic import field_validator
+
 from mfcloud.models.common import MFModel
 
 
@@ -14,6 +16,12 @@ class TBRow(MFModel):
     name: str
     values: list[float | None]
     rows: list[TBRow]
+
+    @field_validator("rows", mode="before")
+    @classmethod
+    def _default_empty_rows(cls, v: list | None) -> list:
+        # Leaf accounts (no sub-accounts) come back as `rows: null`.
+        return v if v is not None else []
 
 
 class TBResponse(MFModel):
@@ -30,6 +38,12 @@ class TransitionRow(MFModel):
     name: str
     values: list[int | None]
     rows: list[TransitionRow]
+
+    @field_validator("rows", mode="before")
+    @classmethod
+    def _default_empty_rows(cls, v: list | None) -> list:
+        # Leaf accounts (no sub-accounts) come back as `rows: null`.
+        return v if v is not None else []
 
 
 class TransitionResponse(MFModel):
