@@ -11,7 +11,7 @@ once, then `mfc auth login` handles everything else.
 
 ## 1. Register the application
 
-1. Open the Money Forward **App Portal** (アプリポータル): https://app-portal.biz.moneyforward.com/
+1. Open the Money Forward **App Portal** (アプリポータル): [https://app-portal.biz.moneyforward.com/](https://app-portal.moneyforward.com/apps/)
    (reachable from クラウド会計 → 設定 if the direct link changes).
 2. Choose **アプリ新規作成** (Create new app).
 3. Fill in:
