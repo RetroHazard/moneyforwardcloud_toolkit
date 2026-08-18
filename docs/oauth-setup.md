@@ -11,7 +11,7 @@ once, then `mfc auth login` handles everything else.
 
 ## 1. Register the application
 
-1. Open the Money Forward **App Portal** (アプリポータル): [https://app-portal.biz.moneyforward.com/](https://app-portal.moneyforward.com/apps/)
+1. Open the Money Forward **App Portal** (アプリポータル): [https://app-portal.moneyforward.com/apps/](https://app-portal.moneyforward.com/apps/)
    (reachable from クラウド会計 → 設定 if the direct link changes).
 2. Choose **アプリ新規作成** (Create new app).
 3. Fill in:
@@ -19,6 +19,10 @@ once, then `mfc auth login` handles everything else.
    - **リダイレクトURI** (Redirect URI): `http://127.0.0.1:8730/callback`
      — must match exactly. If port 8730 is taken on your machine, pick another and set
      `redirect_port` in `%APPDATA%\mfcloud\config.toml` (or `MFC_REDIRECT_PORT`).
+   - **クライアント認証方式** (Client authentication method), if shown: either
+     option works — the toolkit tries HTTP Basic (`CLIENT_SECRET_BASIC`) first and
+     automatically falls back to sending credentials in the request body
+     (`CLIENT_SECRET_POST`).
 4. Save, then copy the issued **クライアントID** (Client ID) and
    **クライアントシークレット** (Client Secret).
 
@@ -73,6 +77,11 @@ Tokens auto-refresh; you should rarely need to log in again.
 
 - **`invalid_redirect_uri`** — the URI registered in the App Portal doesn't exactly
   match `http://127.0.0.1:<port>/callback`.
+- **`HTTP 401` / `invalid_client` right after the browser step succeeds** — the token
+  exchange rejected your client credentials. The stored Client Secret is wrong or
+  stale: it's cached in the OS credential store and silently reused on every login.
+  Re-copy the secret from the App Portal and overwrite it with
+  `mfc auth login --client-secret <SECRET>` (watch for stray whitespace when pasting).
 - **403 from API calls** — the office you picked on the consent screen isn't the one
   you meant, or a needed scope was declined. Re-run `mfc auth login`.
 - **`mfc auth status` says not logged in** after a successful login — you're using a

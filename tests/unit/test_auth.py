@@ -1,5 +1,6 @@
 """OAuth flow tests — fake keyring, mocked token endpoint, no browser, no network."""
 
+import base64
 import threading
 
 import httpx
@@ -12,9 +13,11 @@ from mfcloud.auth.oauth import (
     PKCEPair,
     TokenManager,
     build_authorize_url,
+    exchange_code,
     login,
     parse_callback,
     receive_callback,
+    refresh_grant,
 )
 from mfcloud.auth.store import TokenSet, TokenStore
 from mfcloud.errors import MFCAuthError
@@ -49,6 +52,28 @@ def token_endpoint(responses: list[dict]):
         return httpx.Response(200, json=responses[len(calls) - 1])
 
     return httpx.Client(transport=httpx.MockTransport(handler)), calls
+
+
+def token_endpoint_with_auth(responses: list[tuple[int, dict | bytes]]):
+    """Like token_endpoint, but captures (auth header, form body) and serves statuses."""
+    calls: list[tuple[str | None, dict]] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert str(request.url) == TOKEN_URL
+        calls.append(
+            (request.headers.get("Authorization"),
+             dict(httpx.QueryParams(request.content.decode())))
+        )
+        status, body = responses[len(calls) - 1]
+        if isinstance(body, bytes):
+            return httpx.Response(status, content=body)
+        return httpx.Response(status, json=body)
+
+    return httpx.Client(transport=httpx.MockTransport(handler)), calls
+
+
+BASIC_CID_SEC = "Basic " + base64.b64encode(b"cid:sec").decode()
+TOKENS_OK = {"access_token": "at", "refresh_token": "rt", "expires_in": 3600}
 
 
 # --- store ---------------------------------------------------------------------
@@ -183,6 +208,91 @@ def test_login_manual_flow():
         builtins.print = real_print
     assert tokens.access_token == "at"
     assert calls[0]["code"] == "c2"
+
+
+# --- token exchange: client auth methods and error surfacing -------------------
+
+
+def test_exchange_code_sends_basic_auth_without_body_credentials():
+    client, calls = token_endpoint_with_auth([(200, TOKENS_OK)])
+    data = exchange_code("cid", "sec", "c0de", "http://127.0.0.1:8730/callback", "ver",
+                         http_client=client)
+    assert data["access_token"] == "at"
+    assert len(calls) == 1
+    auth_header, body = calls[0]
+    assert auth_header == BASIC_CID_SEC
+    assert body["grant_type"] == "authorization_code"
+    assert body["code"] == "c0de"
+    assert body["redirect_uri"] == "http://127.0.0.1:8730/callback"
+    assert body["code_verifier"] == "ver"
+    assert "client_id" not in body
+    assert "client_secret" not in body
+
+
+def test_exchange_code_falls_back_to_post_credentials_on_401():
+    client, calls = token_endpoint_with_auth(
+        [(401, {"error": "invalid_client"}), (200, TOKENS_OK)]
+    )
+    data = exchange_code("cid", "sec", "c0de", "http://127.0.0.1:8730/callback", "ver",
+                         http_client=client)
+    assert data["access_token"] == "at"
+    assert len(calls) == 2
+    auth_header, body = calls[1]
+    assert auth_header is None
+    assert body["client_id"] == "cid"
+    assert body["client_secret"] == "sec"
+    assert body["grant_type"] == "authorization_code"
+    assert body["code"] == "c0de"
+
+
+def test_exchange_code_401_on_both_raises_parsed_details():
+    error = {"error": "invalid_client", "error_description": "bad secret"}
+    client, calls = token_endpoint_with_auth([(401, error), (401, error)])
+    with pytest.raises(MFCAuthError) as excinfo:
+        exchange_code("cid", "sec", "c0de", "http://127.0.0.1:8730/callback", "ver",
+                      http_client=client)
+    assert len(calls) == 2  # exactly one fallback, no third attempt
+    assert excinfo.value.status == 401
+    assert excinfo.value.details[0].code == "invalid_client"
+    assert "invalid_client: bad secret" in str(excinfo.value)
+
+
+def test_exchange_code_non_json_error_body_yields_empty_details():
+    client, _ = token_endpoint_with_auth([(401, b"<html>"), (401, b"<html>")])
+    with pytest.raises(MFCAuthError) as excinfo:
+        exchange_code("cid", "sec", "c0de", "http://127.0.0.1:8730/callback", "ver",
+                      http_client=client)
+    assert excinfo.value.details == []
+    assert "no error details" in str(excinfo.value)
+
+
+def test_exchange_code_400_does_not_trigger_fallback():
+    client, calls = token_endpoint_with_auth(
+        [(400, {"error": "invalid_grant", "error_description": "code expired"})]
+    )
+    with pytest.raises(MFCAuthError) as excinfo:
+        exchange_code("cid", "sec", "c0de", "http://127.0.0.1:8730/callback", "ver",
+                      http_client=client)
+    assert len(calls) == 1  # client auth succeeded; retrying cannot help
+    assert excinfo.value.status == 400
+    assert excinfo.value.details[0].code == "invalid_grant"
+
+
+def test_refresh_grant_gets_same_basic_then_post_treatment():
+    client, calls = token_endpoint_with_auth(
+        [(401, {"error": "invalid_client"}), (200, {"access_token": "new", "expires_in": 3600})]
+    )
+    data = refresh_grant("cid", "sec", "rt0ken", http_client=client)
+    assert data["access_token"] == "new"
+    assert len(calls) == 2
+    assert calls[0][0] == BASIC_CID_SEC
+    assert "client_id" not in calls[0][1]
+    assert calls[1][0] is None
+    assert calls[1][1]["client_id"] == "cid"
+    assert calls[1][1]["client_secret"] == "sec"
+    for _, body in calls:
+        assert body["grant_type"] == "refresh_token"
+        assert body["refresh_token"] == "rt0ken"
 
 
 # --- token manager / bearer auth ----------------------------------------------

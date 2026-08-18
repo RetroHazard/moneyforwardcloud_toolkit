@@ -78,6 +78,22 @@ def parse_error_details(response: httpx.Response) -> list[APIErrorDetail]:
         return []
 
 
+def parse_oauth_error_details(response: httpx.Response) -> list[APIErrorDetail]:
+    """Parse an RFC 6749 token-endpoint error body: {"error", "error_description"}."""
+    try:
+        body = response.json()
+        if not isinstance(body, dict) or "error" not in body:
+            return []
+        return [
+            APIErrorDetail(
+                code=str(body["error"]),
+                message=str(body.get("error_description", "")),
+            )
+        ]
+    except Exception:
+        return []
+
+
 def raise_for_status(response: httpx.Response) -> None:
     """Map an error response to a typed exception; no-op for 2xx/3xx."""
     if response.status_code < 400:

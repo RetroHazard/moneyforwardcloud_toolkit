@@ -2,12 +2,14 @@ import httpx
 import pytest
 
 from mfcloud.errors import (
+    APIErrorDetail,
     MFCAuthError,
     MFCloudError,
     MFCPermissionError,
     MFCRateLimitError,
     MFCServerError,
     MFCValidationError,
+    parse_oauth_error_details,
     raise_for_status,
 )
 
@@ -53,6 +55,31 @@ def test_unparseable_body_still_raises_typed_error():
         raise_for_status(response)
     assert excinfo.value.details == []
     assert "no error details" in str(excinfo.value)
+
+
+def test_parse_oauth_error_details_rfc_body():
+    details = parse_oauth_error_details(
+        make_response(401, body={"error": "invalid_client", "error_description": "bad secret"})
+    )
+    assert len(details) == 1
+    assert details[0].code == "invalid_client"
+    assert details[0].message == "bad secret"
+
+
+def test_parse_oauth_error_details_missing_description():
+    details = parse_oauth_error_details(make_response(401, body={"error": "invalid_grant"}))
+    assert details == [APIErrorDetail(code="invalid_grant", message="")]
+
+
+def test_parse_oauth_error_details_api_shaped_body_is_ignored():
+    assert parse_oauth_error_details(make_response(401)) == []  # {"errors": [...]} shape
+
+
+def test_parse_oauth_error_details_non_json_body():
+    response = httpx.Response(
+        401, text="<html>", request=httpx.Request("POST", "https://api.test/token")
+    )
+    assert parse_oauth_error_details(response) == []
 
 
 def test_all_errors_are_mfclouderror():

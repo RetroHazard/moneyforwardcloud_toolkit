@@ -48,6 +48,14 @@ def test_login_reuses_stored_secret_without_prompt(env):
     assert logins[0]["secret"] == "already-there"
 
 
+def test_login_strips_pasted_whitespace_from_secret(env):
+    store, logins = env
+    result = runner.invoke(app, ["auth", "login"], input=" s3cret \n")
+    assert result.exit_code == 0, result.output
+    assert store.load_client_secret() == "s3cret"
+    assert logins[0]["secret"] == "s3cret"
+
+
 def test_login_flag_still_accepted(env):
     store, logins = env
     result = runner.invoke(app, ["auth", "login", "--client-secret", "via-flag"])
